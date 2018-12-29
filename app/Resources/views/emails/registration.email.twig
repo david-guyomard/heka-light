@@ -1,0 +1,11 @@
+{% block subject %}
+    Confirmation d'inscription
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+
+lien de confirmation d'enregistrement
+{{ confirmationUrl }}
+
+{% endautoescape %}
+{% endblock %}
