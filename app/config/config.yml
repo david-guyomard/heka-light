@@ -20,7 +20,7 @@ framework:
     form: ~
     csrf_protection: ~
     validation: { enable_annotations: true }
-    #serializer: { enable_annotations: true }
+    serializer: { enabled: true, enable_annotations: true }
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
@@ -76,7 +76,28 @@ fos_user:
                 address: no-reply@project-symfony.fr
                 sender_name: Administrator
             template: 'emails/registration.email.twig'
-
+fos_rest:
+    routing_loader:
+        include_format: false
+    view:
+        view_response_listener: true
+        formats:
+            json: true
+    format_listener:
+        rules:
+            - { host: 'api.%domain%' ,path: '^/', priorities: ['json'], fallback_format: 'json' }
+            - { host: '%domain%' ,path: '^/', priorities: ['html'], fallback_format: 'html' }
+    body_listener:
+        enabled: true
+    disable_csrf_role: null
+    access_denied_listener:
+        enabled: false
+        service: null
+        formats: false
+    unauthorized_challenge: null
+    param_fetcher_listener:
+        enabled: false
+    
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'

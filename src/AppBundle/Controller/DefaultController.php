@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 class DefaultController extends Controller
 {
@@ -39,5 +40,39 @@ class DefaultController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return new Response('welcome Admin');
+    }
+
+    /**
+     * @Route("/users/list", 
+     *      name="userspage",
+     *      host="{domain}",
+     *      defaults={"domain"="%domain%"},
+     *      requirements={"domain"="%domain%"}
+     * )
+     */
+    public function userListAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('AppBundle:User')->findAll();
+        return $this->render('default/users.html.twig', [
+            'users' => $users
+        ]);
+    }
+
+    /**
+     * @Route("/users/list", 
+     *      name="usersApi",
+     *      host="api.{domain}",
+     *      defaults={"domain"="%domain%"},
+     *      requirements={"domain"="%domain%"}
+     * )
+     * @Rest\View()
+     */
+    public function userListAPIAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('AppBundle:User')->findAll();
+        return $users;
     }
 }
