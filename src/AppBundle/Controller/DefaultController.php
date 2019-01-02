@@ -71,6 +71,7 @@ class DefaultController extends Controller
      */
     public function userListAPIAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:User')->findAll();
         return $users;
