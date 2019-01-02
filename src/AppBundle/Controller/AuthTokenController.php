@@ -54,6 +54,30 @@ class AuthTokenController extends Controller
         return $authToken;
     }
 
+    /**
+     * @Rest\View()
+     * @Rest\Delete("/auth-tokens")
+     */
+    public function removeAuthTokenAction(Request $request)
+    {
+        $headers = $request->headers->all();
+        $token = $headers['x-auth-token'][0] || '';
+        $em = $this->get('doctrine.orm.entity_manager');
+        $authToken = $em->getRepository('AppBundle:AuthToken')
+                    ->findOneBy(array('value'=>$token));
+        /* @var $authToken AuthToken */
+
+        $connectedUser = $this->get('security.token_storage')->getToken()->getUser();
+
+        if ($authToken && $authToken->getUser()->getId() === $connectedUser->getId()) {
+            $em->remove($authToken);
+            $em->flush();
+        } else {
+            throw new \Symfony\Component\HttpKernel\Exception\BadRequestHttpException();
+        }
+    }
+
+
     private function invalidCredentials()
     {
         return \FOS\RestBundle\View\View::create(['message' => 'Invalid credentials'], Response::HTTP_BAD_REQUEST);
