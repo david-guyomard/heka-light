@@ -29,9 +29,12 @@ class AuthTokenController extends Controller
 
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $user = $em->getRepository('AppBundle:User')
-            ->findOneByEmail($credentials->getLogin());
+        $userRepo = $em->getRepository('AppBundle:User');
+        $user = $userRepo->findOneByEmail($credentials->getLogin());
 
+        if (!$user) {
+            $user = $userRepo->findOneByUsername($credentials->getLogin());
+        }
         if (!$user) { // L'utilisateur n'existe pas
             return $this->invalidCredentials();
         }
@@ -80,6 +83,6 @@ class AuthTokenController extends Controller
 
     private function invalidCredentials()
     {
-        return \FOS\RestBundle\View\View::create(['message' => 'Invalid credentials'], Response::HTTP_BAD_REQUEST);
+        return \FOS\RestBundle\View\View::create(['message' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
     }
 }
