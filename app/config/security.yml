@@ -59,6 +59,15 @@ security:
             logout:     true
             anonymous:  true
 
+        sonata:
+            host: sonata.project-symfony.fr
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+            logout:     true
+            anonymous:  true
+
     access_control:
         - { path: ^/login$, host: project-symfony.fr, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, host: project-symfony.fr, role: IS_AUTHENTICATED_ANONYMOUSLY }
