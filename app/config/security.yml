@@ -27,6 +27,20 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        api_login:
+           host: ^api\.project-symfony\.fr$
+           pattern: ^/login
+           anonymous: true
+
+        api_logout:
+           host: ^api\.project-symfony\.fr$
+           pattern: ^/logout
+           stateless: true
+           simple_preauth:
+               authenticator: auth_token_authenticator
+           provider: auth_token_user_provider
+           anonymous: true
+
         api:
            host: ^api\.project-symfony\.fr$
            pattern: ^/(?=\s*\S).*$   #all path but not empty

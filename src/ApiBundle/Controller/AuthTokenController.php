@@ -14,7 +14,7 @@ class AuthTokenController extends Controller
 {
     /**
      * @Rest\View()
-     * @Rest\Post("/auth-tokens")
+     * @Rest\Post("/login")
      */
     public function postAuthTokensAction(Request $request)
     {
@@ -59,7 +59,7 @@ class AuthTokenController extends Controller
 
     /**
      * @Rest\View()
-     * @Rest\Delete("/auth-tokens")
+     * @Rest\Delete("/logout")
      */
     public function removeAuthTokenAction(Request $request)
     {
