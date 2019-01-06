@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Security;
+namespace ApiBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\User;

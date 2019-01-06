@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Form;
+namespace ApiBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +16,7 @@ class CredentialsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Credentials',
+            'data_class' => 'ApiBundle\Entity\Credentials',
             'csrf_protection' => false
         ]);
     }

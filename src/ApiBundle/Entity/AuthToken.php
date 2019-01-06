@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,7 +31,7 @@ class AuthToken
     protected $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @var User
      */
     protected $user;
@@ -72,7 +72,7 @@ class AuthToken
         return $this->user;
     }
 
-    public function setUser(User $user)
+    public function setUser(\AppBundle\Entity\User $user)
     {
         $this->user = $user;
     }

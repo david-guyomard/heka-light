@@ -43,12 +43,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/users/list", 
-     *      name="userspage",
-     *      host="{domain}",
-     *      defaults={"domain"="%domain%"},
-     *      requirements={"domain"="%domain%"}
-     * )
+     * @Route("/users/list", name="userspage")
      */
     public function userListAction(Request $request)
     {
@@ -60,20 +55,4 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/users/list", 
-     *      name="usersApi",
-     *      host="api.{domain}",
-     *      defaults={"domain"="%domain%"},
-     *      requirements={"domain"="%domain%"}
-     * )
-     * @Rest\View()
-     */
-    public function userListAPIAction(Request $request)
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('AppBundle:User')->findAll();
-        return $users;
-    }
 }

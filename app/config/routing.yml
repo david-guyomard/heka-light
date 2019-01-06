@@ -1,10 +1,19 @@
+api:
+    host: 'api.project-symfony.fr'
+    resource: "@ApiBundle/Controller/"
+    type:     annotation
+
+auth-tokens:
+    host: 'api.project-symfony.fr'
+    type:     rest
+    resource: ApiBundle\Controller\AuthTokenController
+
 app:
+    host: 'project-symfony.fr'
     resource: '@AppBundle/Controller/'
     type: annotation
 
 fos_user:
+    host: 'project-symfony.fr'
     resource: '@FOSUserBundle/Resources/config/routing/all.xml'
 
-auth-tokens:
-    type:     rest
-    resource: AppBundle\Controller\AuthTokenController

@@ -29,7 +29,7 @@ security:
 
         api:
            host: ^api\.project-symfony\.fr$
-           pattern: ^/
+           pattern: ^/(?=\s*\S).*$   #all path but not empty
            stateless: true
            simple_preauth:
                authenticator: auth_token_authenticator
@@ -37,7 +37,7 @@ security:
            anonymous: true
         
         main:
-            host: project-symfony.fr$
+            host: project-symfony.fr
             pattern: ^/
             form_login:
                 provider: fos_userbundle

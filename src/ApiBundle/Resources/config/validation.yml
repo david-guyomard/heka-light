@@ -1,4 +1,4 @@
-AppBundle\Entity\Credentials:
+ApiBundle\Entity\Credentials:
     properties:
         login:
             - NotBlank: ~

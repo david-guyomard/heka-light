@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Security;
+namespace ApiBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;

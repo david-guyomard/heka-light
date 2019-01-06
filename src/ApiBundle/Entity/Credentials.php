@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Entity;
+namespace ApiBundle\Entity;
 
 class Credentials
 {

@@ -1,14 +1,14 @@
 <?php
-namespace AppBundle\Controller;
+namespace ApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
-use AppBundle\Form\CredentialsType;
-use AppBundle\Entity\AuthToken;
-use AppBundle\Entity\Credentials;
+use ApiBundle\Form\CredentialsType;
+use ApiBundle\Entity\AuthToken;
+use ApiBundle\Entity\Credentials;
 
 class AuthTokenController extends Controller
 {
@@ -64,9 +64,9 @@ class AuthTokenController extends Controller
     public function removeAuthTokenAction(Request $request)
     {
         $headers = $request->headers->all();
-        $token = $headers['x-auth-token'][0] || '';
+        $token = $headers['x-auth-token'][0];
         $em = $this->get('doctrine.orm.entity_manager');
-        $authToken = $em->getRepository('AppBundle:AuthToken')
+        $authToken = $em->getRepository('ApiBundle:AuthToken')
                     ->findOneBy(array('value'=>$token));
         /* @var $authToken AuthToken */
 
@@ -75,6 +75,7 @@ class AuthTokenController extends Controller
         if ($authToken && $authToken->getUser()->getId() === $connectedUser->getId()) {
             $em->remove($authToken);
             $em->flush();
+            return \FOS\RestBundle\View\View::create(['message' => 'done'], Response::HTTP_OK);
         } else {
             throw new \Symfony\Component\HttpKernel\Exception\BadRequestHttpException();
         }
