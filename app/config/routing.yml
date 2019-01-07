@@ -1,3 +1,4 @@
+
 api:
     host: 'api.project-symfony.fr'
     resource: "@ApiBundle/Controller/"
@@ -12,6 +13,11 @@ app:
     host: 'project-symfony.fr'
     resource: '@AppBundle/Controller/'
     type: annotation
+
+app_product:
+    host: 'project-symfony.fr'
+    resource: "@AppBundle/Controller/ProductController.php"
+    type:     annotation
 
 fos_user:
     host: 'project-symfony.fr'

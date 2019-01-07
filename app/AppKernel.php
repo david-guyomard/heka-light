@@ -32,6 +32,11 @@ class AppKernel extends Kernel
             // SONATA USER
             new Sonata\UserBundle\SonataUserBundle(),
 
+            // TRANSLATION ENTITY
+            new A2lix\I18nDoctrineBundle\A2lixI18nDoctrineBundle(),
+            new A2lix\AutoFormBundle\A2lixAutoFormBundle(),
+            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),   
+
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Application\AppBundle\AppBundle(),
             new Application\ApiBundle\ApiBundle(),

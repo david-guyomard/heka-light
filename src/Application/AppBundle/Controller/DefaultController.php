@@ -25,29 +25,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/test/user", name="userpage")
-     */
-    public function testUserAction(Request $request)
-    {
-        $this->denyAccessUnlessGranted('ROLE_USER');
-        return new Response('welcome User');
-    }
-
-    /**
-     * @Route("/test/admin", name="adminpage")
-     */
-    public function testAdminAction(Request $request)
-    {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        return new Response('welcome Admin');
-    }
-
-    /**
-     * @Route("/users/list", name="userspage")
+     * @Route("/admin/users/list", name="userspage")
      */
     public function userListAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('ApplicationSonataUserBundle:User')->findAll();
         return $this->render('default/users.html.twig', [

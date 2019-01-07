@@ -55,8 +55,24 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
+        entity_managers:
+            default:
+                auto_mapping: true
+                # New custom filter
+                filters:
+                    oneLocale:
+                        class: A2lix\I18nDoctrineBundle\Doctrine\ORM\Filter\OneLocaleFilter
+                        enabled: true
+
+a2lix_i18n_doctrine:
+    manager_registry: doctrine
+
+a2lix_translation_form:
+    locale_provider: default       
+    locales: [fr, en]      
+    default_locale: '%locale%'             
+    required_locales: [fr]         
+    templating: "@A2lixTranslationForm/bootstrap_4_layout.html.twig"      
 
 fos_user:
     db_driver: orm

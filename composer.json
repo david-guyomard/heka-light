@@ -21,6 +21,8 @@
     },
     "require": {
         "php": ">=5.5.9",
+        "a2lix/i18n-doctrine-bundle": "^0.1.0",
+        "a2lix/translation-form-bundle": "^3.0",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "friendsofsymfony/rest-bundle": "^2.4",
