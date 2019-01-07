@@ -1,15 +1,20 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
-    encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
-        AppBundle\Entity\User:
-            algorithm: bcrypt
-            cost: 12
 
     role_hierarchy:
-        ROLE_ADMIN:         ROLE_USER
-        ROLE_SUPER_ADMIN:   ROLE_ADMIN
+        ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        SONATA:
+            - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
+
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+        Application\Sonata\UserBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+    acl:
+        connection: default
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -50,6 +55,21 @@ security:
            provider: auth_token_user_provider
            anonymous: true
         
+        sonata:
+            host: sonata.project-symfony.fr
+            pattern:            /(.*)
+            context:            user
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /login
+                use_forward:    false
+                check_path:     /login_check
+                failure_path:   null
+            logout:
+                path:           /logout
+                target:         /login
+            anonymous:          true
+
         main:
             host: project-symfony.fr
             pattern: ^/
@@ -59,16 +79,14 @@ security:
             logout:     true
             anonymous:  true
 
-        sonata:
-            host: sonata.project-symfony.fr
-            pattern: ^/
-            form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
-            logout:     true
-            anonymous:  true
-
     access_control:
+        - { path: ^/login$, host: sonata.project-symfony.fr, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logout$, host: sonata.project-symfony.fr, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login_check$, host: sonata.project-symfony.fr, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, host: sonata.project-symfony.fr, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/sonata/, host: sonata.project-symfony.fr, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/.*, host: sonata.project-symfony.fr, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
         - { path: ^/login$, host: project-symfony.fr, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, host: project-symfony.fr, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, host: project-symfony.fr, role: IS_AUTHENTICATED_ANONYMOUSLY }

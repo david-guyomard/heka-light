@@ -6,7 +6,7 @@ api:
 auth-tokens:
     host: 'api.project-symfony.fr'
     type:     rest
-    resource: ApiBundle\Controller\AuthTokenController
+    resource: Application\ApiBundle\Controller\AuthTokenController
 
 app:
     host: 'project-symfony.fr'
@@ -26,4 +26,14 @@ _sonata_admin:
     host: 'sonata.project-symfony.fr'
     resource: .
     type: sonata_admin
-    prefix: /sonata
+    prefix: /
+
+sonata_user_admin_security:
+    host: 'sonata.project-symfony.fr'
+    resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+    prefix: /
+
+sonata_user_admin_resetting:
+    host: 'sonata.project-symfony.fr'
+    resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
+    prefix: /resetting
