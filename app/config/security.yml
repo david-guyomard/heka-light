@@ -56,8 +56,8 @@ security:
            anonymous: true
         
         sonata:
-            host: sonata.project-symfony.fr
-            pattern:            /(.*)
+            host: ^sonata\.project-symfony\.fr$
+            pattern:            ^/
             context:            user
             form_login:
                 provider:       fos_userbundle
@@ -71,7 +71,7 @@ security:
             anonymous:          true
 
         main:
-            host: project-symfony.fr
+            host: ^project-symfony\.fr$
             pattern: ^/
             form_login:
                 provider: fos_userbundle
