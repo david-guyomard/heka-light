@@ -25,6 +25,18 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/product", name="productspage")
+     */
+    public function productListAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('AppBundle:Product')->findAll();
+        return $this->render('default/products.html.twig', [
+            'products' => $products
+        ]);
+    }
+
+    /**
      * @Route("/admin/users/list", name="userspage")
      */
     public function userListAction(Request $request)

@@ -33,13 +33,19 @@ class AppKernel extends Kernel
             new Sonata\UserBundle\SonataUserBundle(),
 
             // TRANSLATION ENTITY
-            new A2lix\I18nDoctrineBundle\A2lixI18nDoctrineBundle(),
+            new Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle(),
             new A2lix\AutoFormBundle\A2lixAutoFormBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),   
 
-            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
-            new Application\AppBundle\AppBundle(),
+            // I18N ROUTING
+            new BeSimple\I18nRoutingBundle\BeSimpleI18nRoutingBundle(),
+            
             new Application\ApiBundle\ApiBundle(),
+            new Application\AppBundle\AppBundle(),
+            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
+            new Application\Sonata\AdminBundle\ApplicationSonataAdminBundle(),
+           
+            
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

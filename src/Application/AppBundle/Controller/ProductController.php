@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use A2lix\I18nDoctrineBundle\Annotation\I18nDoctrine;
 
 /**
  * Product controller.
@@ -21,7 +20,6 @@ class ProductController extends Controller
      *
      * @Route("/", name="admin_product_index")
      * @Method("GET")
-     * @I18nDoctrine
      */
     public function indexAction()
     {
@@ -39,7 +37,6 @@ class ProductController extends Controller
      *
      * @Route("/new", name="admin_product_new")
      * @Method({"GET", "POST"})
-     * @I18nDoctrine
      */
     public function newAction(Request $request)
     {
@@ -66,7 +63,6 @@ class ProductController extends Controller
      *
      * @Route("/{id}", name="admin_product_show")
      * @Method("GET")
-     * @I18nDoctrine
      */
     public function showAction(Product $product)
     {
@@ -83,7 +79,6 @@ class ProductController extends Controller
      *
      * @Route("/{id}/edit", name="admin_product_edit")
      * @Method({"GET", "POST"})
-     * @I18nDoctrine
      */
     public function editAction(Request $request, Product $product)
     {
@@ -109,7 +104,6 @@ class ProductController extends Controller
      *
      * @Route("/{id}/delete", name="admin_product_delete")
      * @Method("DELETE")
-     * @I18nDoctrine
      */
     public function deleteAction(Request $request, Product $product)
     {

@@ -3,14 +3,14 @@
 namespace Application\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * @ORM\Entity
  */
-class ProductTranslation implements \A2lix\I18nDoctrineBundle\Doctrine\Interfaces\OneLocaleInterface
+class ProductTranslation 
 {
-    use \A2lix\I18nDoctrineBundle\Doctrine\ORM\Util\Translation;
-
+    use ORMBehaviors\Translatable\Translation;
     /**
      * @ORM\Column
      */
@@ -46,5 +46,10 @@ class ProductTranslation implements \A2lix\I18nDoctrineBundle\Doctrine\Interface
     public function getDescription()
     {
         return $this->description;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 }

@@ -58,21 +58,35 @@ doctrine:
         entity_managers:
             default:
                 auto_mapping: true
-                # New custom filter
-                filters:
-                    oneLocale:
-                        class: A2lix\I18nDoctrineBundle\Doctrine\ORM\Filter\OneLocaleFilter
-                        enabled: true
+                # # New custom filter
+                # mappings:
+                #     AppBundle: ~
+                #     ApiBundle: ~
+                #     ApplicationSonataUserBundle: ~
 
-a2lix_i18n_doctrine:
-    manager_registry: doctrine
+parameters:
+    knp.doctrine_behaviors.blameable_subscriber.user_entity: Application\Sonata\UserBundle\Entity\User
 
+knp_doctrine_behaviors:
+    blameable:      true
+    sluggable:      true
+    translatable:   true
+    
 a2lix_translation_form:
     locale_provider: default       
     locales: [fr, en]      
     default_locale: '%locale%'             
     required_locales: [fr]         
-    templating: "@A2lixTranslationForm/bootstrap_4_layout.html.twig"      
+    templating: "@A2lixTranslationForm/bootstrap_4_layout.html.twig"    
+    
+a2lix_auto_form:
+    excluded_fields: [id, locale, translatable]      
+
+be_simple_i18n_routing:
+    locales:
+        supported: ['fr', 'en']
+        filter: true
+        strict: true
 
 fos_user:
     db_driver: orm

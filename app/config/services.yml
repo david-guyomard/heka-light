@@ -28,3 +28,9 @@ services:
         resource: '../../src/Application/AppBundle/Controller'
         public: true
         tags: ['controller.service_arguments']
+    
+    admin.product:
+        class: Application\Sonata\AdminBundle\Admin\ProductAdmin
+        arguments: [~, Application\AppBundle\Entity\Product, ~]
+        tags:
+            - { name: sonata.admin, group: "Datas", manager_type: orm, label: product }

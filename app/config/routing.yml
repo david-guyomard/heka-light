@@ -9,19 +9,23 @@ auth-tokens:
     type:     rest
     resource: Application\ApiBundle\Controller\AuthTokenController
 
-app:
+root:
     host: 'project-symfony.fr'
-    resource: '@AppBundle/Controller/'
-    type: annotation
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /%locale%/
+        permanent: true
+    requirements:
+        _locale: "%locales%"
 
-app_product:
+main_app:
     host: 'project-symfony.fr'
-    resource: "@AppBundle/Controller/ProductController.php"
-    type:     annotation
-
-fos_user:
-    host: 'project-symfony.fr'
-    resource: '@FOSUserBundle/Resources/config/routing/all.xml'
+    resource: "@AppBundle/Resources/config/routing/routing.yml"
+    type: "be_simple_i18n"
+    prefix:
+        en: "/en"
+        fr: "/fr"
 
 admin_homepage:
     host: 'sonata.project-symfony.fr'

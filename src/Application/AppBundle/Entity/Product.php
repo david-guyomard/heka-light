@@ -3,15 +3,14 @@
 namespace Application\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * @ORM\Entity
  */
 class Product
 {
-    use \A2lix\I18nDoctrineBundle\Doctrine\ORM\Util\Translatable;
-
+    use ORMBehaviors\Translatable\Translatable;
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -19,13 +18,14 @@ class Product
      */
     protected $id;
 
-    /**
-     * @Assert\Valid
-     */
-    protected $translations;
-
     public function getId()
     {
         return $this->id;
     }
+
+    public function __call($method, $arguments)
+    {
+        return $this->proxyCurrentLocaleTranslation($method, $arguments);
+    }
+
 }
