@@ -9,14 +9,14 @@ parameters:
     database_port: 3306
     database_name: projectsymfony
     database_user: wordpress
-    database_password: ubuntu
+    database_password: po#34papo
     # You should uncomment this if you want to use pdo_sqlite
     #database_path: '%kernel.project_dir%/var/data/data.sqlite'
 
     mailer_transport: smtp
     mailer_host: 127.0.0.1
-    mailer_user: jb.cordovado@gmail.com
-    mailer_password: rjhncieaccoprcih
+    mailer_user: 
+    mailer_password: 
 
     # A secret key that's used to generate certain security-related tokens
     secret: e2ce3d4eb141ae2a6af0db1ee6a43b5ed2735b9f
