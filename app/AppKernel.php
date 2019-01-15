@@ -44,6 +44,9 @@ class AppKernel extends Kernel
             new Application\AppBundle\AppBundle(),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Application\Sonata\AdminBundle\ApplicationSonataAdminBundle(),
+
+            // CORS
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
            
             
         ];
