@@ -73,7 +73,7 @@ knp_doctrine_behaviors:
     
 a2lix_translation_form:
     locale_provider: default       
-    locales: [fr, en]      
+    locales: [fr, en, pt]      
     default_locale: '%locale%'             
     required_locales: [fr]         
     templating: "@A2lixTranslationForm/bootstrap_4_layout.html.twig"    
@@ -83,7 +83,7 @@ a2lix_auto_form:
 
 be_simple_i18n_routing:
     locales:
-        supported: ['fr', 'en']
+        supported: ['fr', 'en', 'pt']
         filter: true
         strict: true
 

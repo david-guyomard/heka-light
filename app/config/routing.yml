@@ -13,6 +13,7 @@ main_app:
     prefix:
         en: "/en"
         fr: "/fr"
+        pt: "/pt"
 
 admin_homepage:
     resource: Application\Sonata\UserBundle\Controller\DefaultController
