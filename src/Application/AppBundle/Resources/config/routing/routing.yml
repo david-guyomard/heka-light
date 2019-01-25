@@ -7,5 +7,4 @@ app_product:
     type:     annotation
 
 fos_user:
-    host: 'project-symfony.fr'
     resource: '@FOSUserBundle/Resources/config/routing/all.xml'

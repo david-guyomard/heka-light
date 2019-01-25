@@ -34,3 +34,7 @@ services:
         arguments: [~, Application\AppBundle\Entity\Product, ~]
         tags:
             - { name: sonata.admin, group: "Datas", manager_type: orm, label: product }
+    
+    Application\AppBundle\EventListener\FullCalendarListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }

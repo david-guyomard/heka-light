@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <a href="{{ path('booking_new') }}">Create new booking</a>
+    {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var calendar = $('#calendar-holder').fullCalendar({
+                editable: true,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: "/fc-load-events",
+                // Convert the allDay from string to boolean
+                eventRender: function(event, element, view) {
+                    if (event.allDay === 'true') {
+                        event.allDay = true;
+                    } else {
+                        event.allDay = false;
+                    }
+                },
+                selectable: true,
+                selectHelper: true,
+                select: function(start, end, allDay) {
+                    var title = prompt('Event Title:');
+                    var url = prompt('Type Event url, if exits:');
+                    if (title) {
+                        
+                        var start = $.fullCalendar.moment(start).format();
+                        var end = $.fullCalendar.moment(end).format();
+                        $.ajax({
+                            data: 'title='+ title+'&start='+ start +'&end='+ end +'&url='+ url ,
+                            type: "POST",
+                            success: function(json) {
+                                alert('Added Successfully');
+                            }
+                        });
+                        calendar.fullCalendar('renderEvent',
+                            {
+                                title: title,
+                                start: start,
+                                end: end,
+                                allDay: allDay
+                            },
+                            true // make the event "stick"
+                        );
+                    }
+                },
+
+                editable: true,
+                eventDrop: function(event, delta) {
+                        var start = $.fullCalendar.moment(start).format();
+                        var end = $.fullCalendar.moment(end).format();
+                        $.ajax({
+                            data: 'title=' + event.title + '&start='+ start +'&end=' + end + '&id=' + event.id ,
+                            type: "POST",
+                            success: function(json) {   
+                                alert("Updated Successfully");
+                            }
+                        });
+                },
+                eventResize: function(event) {
+                    var start = $.fullCalendar.moment(start).format();
+                    var end = $.fullCalendar.moment(end).format();
+                    $.ajax({
+                        data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id ,
+                        type: "POST",
+                        success: function(json) {
+                        alert("Updated Successfully");
+                        }
+                    });
+                }
+
+            });
+
+        });  
+    </script>
+{% endblock %}

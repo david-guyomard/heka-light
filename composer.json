@@ -1,8 +1,11 @@
 {
-    "name": "ubuntu/projectsymfony",
+    "name": "david/heka-light",
     "license": "proprietary",
     "type": "project",
     "autoload": {
+        "psr-0": {
+            "": "src"
+        },
         "psr-4": {
             "": "src/"
         },
@@ -26,12 +29,9 @@
         "besimple/i18n-routing-bundle": "^2.4",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
-        "friendsofsymfony/rest-bundle": "^2.4",
         "friendsofsymfony/user-bundle": "^2.1",
         "incenteev/composer-parameter-handler": "^2.0",
         "knplabs/doctrine-behaviors": "^1.6",
-        "nelmio/api-doc-bundle": "^3.3",
-        "nelmio/cors-bundle": "^1.5",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
         "sonata-project/admin-bundle": "^3.43",
@@ -43,11 +43,13 @@
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/symfony": "3.4.*",
+        "toiba/fullcalendar-bundle": "^6.2",
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "phpspec/phpspec": "^4.0"
     },
     "scripts": {
         "symfony-scripts": [
@@ -66,7 +68,8 @@
         ]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "bin-dir": "bin"
     },
     "extra": {
         "symfony-app-dir": "app",

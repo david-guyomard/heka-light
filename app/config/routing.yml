@@ -1,16 +1,4 @@
-
-api:
-    host: 'api.project-symfony.fr'
-    resource: "@ApiBundle/Controller/"
-    type:     annotation
-
-auth-tokens:
-    host: 'api.project-symfony.fr'
-    type:     rest
-    resource: Application\ApiBundle\Controller\AuthTokenController
-
 root:
-    host: 'project-symfony.fr'
     pattern: /
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
@@ -20,7 +8,6 @@ root:
         _locale: "%locales%"
 
 main_app:
-    host: 'project-symfony.fr'
     resource: "@AppBundle/Resources/config/routing/routing.yml"
     type: "be_simple_i18n"
     prefix:
@@ -28,27 +15,25 @@ main_app:
         fr: "/fr"
 
 admin_homepage:
-    host: 'sonata.project-symfony.fr'
     resource: Application\Sonata\UserBundle\Controller\DefaultController
     prefix: /
 
 admin_area:
-    host: 'sonata.project-symfony.fr'
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /sonata
 
 _sonata_admin:
-    host: 'sonata.project-symfony.fr'
     resource: .
     type: sonata_admin
     prefix: /
 
 sonata_user_admin_security:
-    host: 'sonata.project-symfony.fr'
     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
     prefix: /
 
 sonata_user_admin_resetting:
-    host: 'sonata.project-symfony.fr'
     resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
     prefix: /resetting
+
+toiba_fullcalendar:
+    resource: "@FullCalendarBundle/Resources/config/routing.yaml"

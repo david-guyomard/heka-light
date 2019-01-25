@@ -19,7 +19,6 @@ class AppKernel extends Kernel
 
             // FOS
             new FOS\UserBundle\FOSUserBundle(),
-            new FOS\RestBundle\FOSRestBundle(),
 
             // SONATA
             new Sonata\CoreBundle\SonataCoreBundle(),
@@ -40,14 +39,13 @@ class AppKernel extends Kernel
             // I18N ROUTING
             new BeSimple\I18nRoutingBundle\BeSimpleI18nRoutingBundle(),
             
-            new Application\ApiBundle\ApiBundle(),
             new Application\AppBundle\AppBundle(),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Application\Sonata\AdminBundle\ApplicationSonataAdminBundle(),
 
-            // CORS
-            new Nelmio\CorsBundle\NelmioCorsBundle(),
-           
+            //Calendar
+            new Toiba\FullCalendarBundle\FullCalendarBundle(),
+
             
         ];
 
