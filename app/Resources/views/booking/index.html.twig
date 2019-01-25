@@ -35,8 +35,6 @@
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end, allDay) {
-                    var title = prompt('Event Title:');
-                    var url = prompt('Type Event url, if exits:');
                     if (title) {
                         
                         var start = $.fullCalendar.moment(start).format();
