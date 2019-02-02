@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as Rest;
 
 class DefaultController extends Controller
 {
@@ -34,6 +33,24 @@ class DefaultController extends Controller
         return $this->render('default/products.html.twig', [
             'products' => $products
         ]);
+    }
+
+    /**
+     * @Route("/{slug}", name="page")
+     */
+    public function pageAction(Request $request, $slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $pages = $em->getRepository('AppBundle:Page')->findAll();
+        
+        if ($slug == 'pratique' || $slug == 'therapie' || $slug == 'kundalini' || $slug == 'evenements') {
+            $this->generateUrl('page', array('slug'=>$slug));
+            return $this->render('default/page.html.twig');
+        } else {
+            return $this->render('default/page.html.twig'); 
+        }
+        
     }
 
     /**

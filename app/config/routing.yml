@@ -1,3 +1,7 @@
+app_page:
+    resource: "@AppBundle/Controller/PageController.php"
+    type:     annotation
+
 root:
     pattern: /
     defaults:

@@ -42,16 +42,16 @@
                         <a class="nav-link" href="{{ path('homepage') }}">ACCUEIL</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">MA PRATIQUE</a>
+                        <a class="nav-link" href="{{ path('page.fr', {'slug': 'pratique'})}}">MA PRATIQUE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">THERAPIE QUANTIQUE ?</a>
+                        <a class="nav-link" href="{{ path('page.fr' , {'slug': 'therapie'})}}">THERAPIE QUANTIQUE ?</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">EVEIL KUNDALINI</a>
+                        <a class="nav-link" href="{{ path('page.fr', {'slug': 'kundalini'})}}">EVEIL KUNDALINI</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">EVENEMENTS</a>
+                        <a class="nav-link" href="{{ path('page.fr', {'slug': 'evenements'})}}">EVENEMENTS</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('booking_index') }}">AGENDA</a>
