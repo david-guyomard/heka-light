@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class ProductType extends AbstractType
 {
@@ -14,7 +15,13 @@ class ProductType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('translations', TranslationsType::class);
+        $builder->add('translations', TranslationsType::class, array(
+            'fields' => array(
+                'description' => array(
+                    'field_type' => CKEditorType::class
+                ),
+            ),
+        ));
     }
     
     /**

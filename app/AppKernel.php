@@ -19,6 +19,7 @@ class AppKernel extends Kernel
 
             // FOS
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\CKEditorBundle\FOSCKEditorBundle(),
 
             // SONATA
             new Sonata\CoreBundle\SonataCoreBundle(),

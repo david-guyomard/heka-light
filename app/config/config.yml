@@ -32,6 +32,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -132,3 +134,13 @@ sonata_user:
         group: Application\Sonata\UserBundle\Entity\Group
     security_acl: true
     manager_type: orm # can be orm or mongodb
+    impersonating:
+        route: user
+        
+# fos_ck_editor:
+#     configs:
+#         my_config:
+#             toolbar: [ ["Source", "-", "Save"], "/", ["Anchor"], "/", ["Maximize"] ]
+#             uiColor:                "#000000"
+#             filebrowserUploadRoute: "admin_product_new"
+#             extraPlugins:           "wordcount"

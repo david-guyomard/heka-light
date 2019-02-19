@@ -1,1 +1,66 @@
 {% extends 'base.html.twig' %}
+{% block body %}
+{% if 'pratique' in app.request.uri %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-5">
+                <img class="img-fluid" src="{{ asset('images/CQ.jpg') }}"/>
+            </div>
+            <div class="col">
+            {% for product in products %}
+                {% if app.request.locale =="fr" and product.getLocale == "fr" and product.getTitle == "pratique_1" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if app.request.locale =="en" and product.getLocale == "en" and product.getTitle == "pratique_1" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "pratique_1" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+            {% for product in products %}
+                {% if app.request.locale =="fr" and product.getLocale == "fr" and product.getTitle == "pratique_2" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if app.request.locale =="en" and product.getLocale == "en" and product.getTitle == "pratique_2" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "pratique_2" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endfor %}
+            </div>
+            <div class="col-3">
+                <img class="img-fluid" src="{{ asset('images/CE.jpg') }}" />
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% if 'therapie' in app.request.uri %} 
+    <div> page thérapie </div>
+{% endif %}
+{% if 'kundalini' in app.request.uri %} 
+    <div> page kundalini </div>
+{% endif %}
+{% if 'evenements' in app.request.uri %} 
+    <div> page evenements </div>
+{% endif %}
+{% endblock %}

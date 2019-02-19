@@ -42,7 +42,7 @@ security:
                 failure_path:   null
             logout:
                 path:           /logout
-                target:         /login
+                target:         homepage
             anonymous:          true
 
         main:

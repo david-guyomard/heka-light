@@ -54,6 +54,7 @@
                     </div>
                 </div>
             </div>
+            {% if app.request.locale == "fr" %}
             <div class="col-7 no-gutters">
                 <p class="text-center mb-0">Le coeur tient sa tête dans sa main, sa face est voilée; les mains du coeur sont liées par des chaines solides, les pieds du coeur sont cloués.</p>
                 <p class="text-center mb-0">Les yeux du coeur ne sont jamais secs, car il s’exprime uniquement par les larmes. Les oreilles du coeur sont si fines qu’il entend l’invitation venue de loin.</p>
@@ -66,6 +67,51 @@
                 <p class="text-center">L’espérance est le bâton que le coeur tient en main.</p>
                 <p class="text-right mr-5">Hazrat Inayat Khan</p>
             </div>
+            {% endif %}
+            {% if app.request.locale == "en" %}
+            <div class="col-7 no-gutters">
+                <p class="text-center mb-0">The heart holds its head in its hand, its face is veiled; the hands of the heart are bound by strong chains, the feet of the heart are nailed. </p>
+
+                <p class="text-center mb-0">The eyes of the heart are never dry because it is expressed only by tears. The ears of the heart are so fine that he hears the invitation from afar.</p>
+
+                <p class="text-center mb-0">The voice of the heart does not say a word, but its cry is in the distance. The heart has neither question nor answer, the heart is sighed.</p>
+
+                <p class="text-center mb-0">The ways of the heart are mysterious, the heart has a child's soul. The breath of the heart overflows with tenderness, the heart has the indulgent face.</p>
+
+                <p class="text-center mb-0">From the heart, the ideal alone is the god, an aspiration of every moment is his life. The heart cares neither for life nor for death</p>
+
+                <p class="text-center mb-0">the heart does not weaken in adversity. From the heart, beauty is the only end, the inspirer and the whole. The heart is to itself its own remedy,</p>
+
+                <p class="text-center mb-0">he heals all wounds.</p>
+
+                <p class="text-center mb-0">The path of the heart is strewn with thorns, but it ultimately leads to bliss.</p>
+
+                <p class="text-center mb-0">Hope is the stick that the heart holds in its hands.</p>
+                <p class="text-right mr-5">Hazrat Inayat Khan</p>
+            </div>
+            {% endif %}
+            {% if app.request.locale == "pt" %}
+            <div class="col-7 no-gutters">
+                <p class="text-center mb-0">O coração mantém a cabeça na mão, o rosto está velado; as mãos do coração estão atadas por cadeias fortes, os pés do coração são pregados.</p>
+
+                <p class="text-center mb-0">Os olhos do coração nunca estão secos porque são expressos apenas pelas lágrimas. Os ouvidos do coração são tão bons que ele ouve o convite de longe.</p>
+
+                <p class="text-center mb-0">A voz do coração não diz uma palavra, mas seu grito está à distância. O coração não tem pergunta nem resposta, o coração suspirou.</p>
+
+                <p class="text-center mb-0">Os caminhos do coração são misteriosos, o coração tem alma de criança. O sopro do coração transborda de ternura, o coração tem o rosto indulgente.</p>
+
+                <p class="text-center mb-0">Do coração, o ideal sozinho é o deus, uma aspiração de cada momento é a sua vida. O coração não se importa nem pela vida nem pela morte</p>
+
+                <p class="text-center mb-0">o coração não enfraquece na adversidade. Do coração, a beleza é o único fim, o inspirador e o todo. O coração é para si mesmo seu próprio remédio</p>
+
+                <p class="text-center mb-0">ele cura todas as feridas.</p>
+
+                <p class="text-center mb-0">O caminho do coração está repleto de espinhos, mas, em última análise, leva à felicidade.</p>
+
+                <p class="text-center mb-0">Esperança é o pau que o coração segura nas mãos.</p>
+                <p class="text-right mr-5">Hazrat Inayat Khan</p>
+            </div>
+            {% endif %}
         </div>
     </div>
 

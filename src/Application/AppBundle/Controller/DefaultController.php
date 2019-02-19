@@ -40,13 +40,32 @@ class DefaultController extends Controller
      */
     public function pageAction(Request $request, $slug)
     {
-        $em = $this->getDoctrine()->getManager();
 
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('AppBundle:Product')->findAll();
         $pages = $em->getRepository('AppBundle:Page')->findAll();
         
+        switch($request->getLocale()){
+            case "pt":
+                $var = "hola";
+                
+                break;
+            case "en":
+                $var = "hello";
+                break;
+            case "fr":
+            default:
+                $var = "salut";
+                break;
+        }
+
         if ($slug == 'pratique' || $slug == 'therapie' || $slug == 'kundalini' || $slug == 'evenements') {
             $this->generateUrl('page', array('slug'=>$slug));
-            return $this->render('default/page.html.twig');
+            return $this->render('default/page.html.twig', array (
+                "welcome_mess" => $var,
+                "products" => $products,
+                'pages' => $pages,
+            ));
         } else {
             return $this->render('default/page.html.twig'); 
         }
@@ -57,6 +76,18 @@ class DefaultController extends Controller
      * @Route("/admin/users/list", name="userspage")
      */
     public function userListAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('ApplicationSonataUserBundle:User')->findAll();
+        return $this->render('default/users.html.twig', [
+            'users' => $users
+        ]);
+    }
+
+    /**
+     * @Route("/admin/users", name="user")
+     */
+    public function usersAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('ApplicationSonataUserBundle:User')->findAll();
