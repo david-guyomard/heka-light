@@ -1,0 +1,32 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <span class="text-center"> S'enregistrer </span>
+    </div>
+    <div class="row justify-content-center">
+        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+            {# {{ form_widget(form) }} #}
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            {{ form_label(form.username) }}
+            {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+            {{ form_label(form.plainPassword.first) }}
+            {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+            {{ form_label(form.plainPassword.second) }}
+            {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+            <div class="d-flex justify-content-center mt-5">
+                <input class="btn btn-success" type="submit" value="{{ 'registration.submit'|trans }}" />
+            </div>
+        {{ form_end(form) }}
+    </div>
+
+{% block stylesheets %}
+    <style>
+        span{
+            font-size: 50px;
+        }
+    </style>
+
+{% endblock %}

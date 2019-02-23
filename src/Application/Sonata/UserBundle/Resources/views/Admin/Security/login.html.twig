@@ -1,0 +1,188 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends base_template %}
+
+{% block sonata_nav %}
+{% endblock sonata_nav %}
+
+{% block logo %}
+{% endblock logo %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  
+{% endblock %}
+
+{% block sonata_left_side %}
+{% endblock sonata_left_side %}
+
+{% block body_attributes %}class="sonata-bc login-page"{% endblock %}
+
+{% block sonata_wrapper %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-0">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('homepage.fr') }}">ACCUEIL</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('page.fr', {'slug': 'pratique'})}}">MA PRATIQUE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('page.fr' , {'slug': 'therapie'})}}">THERAPIE QUANTIQUE ?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('page.fr', {'slug': 'kundalini'})}}">EVEIL KUNDALINI</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('page.fr', {'slug': 'evenements'})}}">EVENEMENTS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('booking_index.fr') }}">AGENDA</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('sonata_admin_dashboard') }}">Mon compte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('sonata_user_admin_security_logout') }}">Se déconnecter</a>
+                        </li>
+                    {% elseif is_granted('ROLE_USER') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('user.fr') }}">Mon compte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('sonata_user_admin_security_logout') }}">Se déconnecter</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('sonata_user_admin_security_login') }}">Se connecter</a>
+                        </li>
+                    {% endif %}
+                    {% if app.request.attributes.get('_route') == 'homepage' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('homepage.pt') }}">
+                                <img src=" {{ asset('images/pt.jpg') }} " height ="20" alt="heka light, heka-light, portuguese flag, drapeau portugais">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('homepage.en') }}">
+                                <img src=" {{ asset('images/gb.jpg') }} " height ="20" alt="heka light, heka-light, english flag, drapeau anglais">
+                            </a>
+                        </li>
+                    {% endif %}
+                  
+                </ul>
+            </div>
+        </nav>
+    <div class="container-fluid d-flex justify-content-center">
+    <div class="login-box">
+        <div class="login-box-body">
+            {% block sonata_user_login_form %}
+                {% block sonata_user_login_error %}
+                    {% if error %}
+                        <div class="alert alert-danger alert-error">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+                {% endblock %}
+                <p class="login-box-msg">{{ 'title_user_authentication'|trans({}, 'SonataUserBundle') }}</p>
+                {% if qrCodeUrl is defined %}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p align="middle"> <img src="{{ qrCodeUrl }}" alt="QR-code"></p>
+                            <p align="middle">{{ 'qr_code_secret'|trans({}, 'SonataUserBundle') }}: {{ qrSecret }}</p>
+                            <p align="middle">
+                                <a href="{{ path('sonata_admin_dashboard') }}">{{ 'qr_go_next'|trans({}, 'SonataUserBundle') }}</a>
+                            </p>
+                        </div>
+                    </div>
+                {% elseif two_step_submit|default(false) %}
+                    <form method="POST" role="form">
+                        {% if state == 'error' %}
+                            <div class="alert alert-error">{{ 'label_two_step_code_error'|trans({}, 'SonataUserBundle') }}</div>
+                        {% endif %}
+                        <label for="_code">{{ 'label_two_step_code'|trans({}, 'SonataUserBundle') }}</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" id="_code" name="_code" autocomplete='off' />
+                            <span class="input-group-btn">
+                                <input class="btn btn-primary"
+                                    id="_submit"
+                                    name="_submit"
+                                    type="submit"
+                                    value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+                            </span>
+                        </div>
+                        <span class="help-block sonata-ba-field-help">{{ 'message_two_step_code_help'|trans({}, 'SonataUserBundle') }}</span>
+                    </form>
+                {% else %}
+                    <form action="{{ path("sonata_user_admin_security_check") }}" method="post" role="form">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+
+                        <div class="form-group has-feedback ">
+                            <input class="form-control"
+                                id="username"
+                                name="_username"
+                                placeholder="{{ 'security.login.username'|trans({}, 'SonataUserBundle') }}"
+                                required="required"
+                                type="text"
+                                value="{{ last_username }}"/>
+                            <span class="mr-3 glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+
+                        <div class="form-group has-feedback">
+                            <input class="form-control"
+                                id="password"
+                                name="_password"
+                                placeholder="{{ 'security.login.password'|trans({}, 'SonataUserBundle') }}"
+                                required="required"
+                                type="password"/>
+                            <span class="mr-3 glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+
+                        <div class="row">
+                            
+                                <div class="col">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                                            {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                                </div>
+                            
+                        </div>
+                    </form>
+                    <div>
+                        <a href="{{ path('fos_user_registration_register')}}"> S'inscrire </a>
+                    </div>
+                    <a href="{{ reset_route }}">{{ 'forgotten_password'|trans({}, 'SonataUserBundle') }}</a>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+    </div>
+
+{% endblock sonata_wrapper %}
+{% block javascripts %}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+{% endblock %}

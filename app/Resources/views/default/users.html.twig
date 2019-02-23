@@ -1,7 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% for user in users %}
-        {{ user.username }}
-    {% endfor %}
+    {% if app.user %}
+    
+        {{ app.user }}
+    
+    <h1>Booking</h1>
+    <table>
+        <tbody>
+        {% for booking in bookings %}
+            {% if app.user.username == booking.userId %}
+            <tr>
+                <th>Beginat</th>
+                <td>{% if booking %}{{ booking.beginAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Endat</th>
+                <td>{% if booking %}{{ booking.endAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{% if booking %}{{ booking.title }}{% endif %}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        
+        </tbody>
+    </table>
+    
+    {% endif %}
 {% endblock %}

@@ -22,7 +22,7 @@ security:
             id: fos_user.user_provider.username_email
         sonata_provider:
             entity:
-                class: Application\Sonata\UserBundle\Entity\User
+                class: Application\AppBundle\Entity\User #Application\Sonata\UserBundle\Entity\User
                 property: username
 
     firewalls:

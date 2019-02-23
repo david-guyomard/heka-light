@@ -31,7 +31,7 @@ class BookingController extends Controller
     /**
      * Creates a new booking entity.
      *
-     * @Route("/new", name="booking_new")
+     * @Route("/", name="booking_index")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -45,10 +45,10 @@ class BookingController extends Controller
             $em->persist($booking);
             $em->flush();
 
-            return $this->redirectToRoute('booking_show', array('id' => $booking->getId()));
+            return $this->redirectToRoute('booking_index', array('id' => $booking->getId()));
         }
 
-        return $this->render('booking/new.html.twig', array(
+        return $this->render('booking/index.html.twig', array(
             'booking' => $booking,
             'form' => $form->createView(),
         ));

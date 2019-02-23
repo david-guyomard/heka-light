@@ -1,7 +1,37 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <a href="{{ path('booking_new') }}">Create new booking</a>
-    {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+            </div>
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                <button class="btn" id="booking">Prendre un rendez-vous</button>
+            {% else %}
+                <a href="{{ path('sonata_user_admin_security_login') }}">Se connecter/créer un compte pour prendre un rendez-vous</a>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+            <div class="col" style="display : none" id="bookingForm">
+                {{ form_start(form) }}
+                    {#{{ form_widget(form) }}#}
+                    
+                    {{ form_label(form.beginAt) }}
+                    {{ form_widget(form.beginAt) }}
+                    {{ form_label(form.endAt) }}
+                    {{ form_widget(form.endAt) }}
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_label(form.userId) }}
+                    {{ form_widget(form.userId) }}
+                    <input class="btn btn-success mt-3" type="submit" value="Valider le rendez-vous" />
+                {{ form_end(form) }}
+            </div>
+            {% endif %}
+            
+        </div>
+    </div>
+    
 {% endblock %}
 
 {% block stylesheets %}
@@ -14,7 +44,11 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
     <script type="text/javascript">
+    {% if app.request.locale == "fr"%}
         $(function () {
+            $('#booking').click(function(){
+                $('#bookingForm').attr("style","display : block")
+            })
             var calendar = $('#calendar-holder').fullCalendar({
                 locale: 'fr',
                 editable: true,
@@ -85,5 +119,156 @@
             });
 
         });  
+    {% elseif app.request.locale == "en" %}
+        $(function () {
+            $('#booking').click(function(){
+                $('#bookingForm').attr("style","display : block")
+            })
+            var calendar = $('#calendar-holder').fullCalendar({
+                locale: 'en',
+                editable: true,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: "/fc-load-events",
+                // Convert the allDay from string to boolean
+                eventRender: function(event, element, view) {
+                    if (event.allDay === 'true') {
+                        event.allDay = true;
+                    } else {
+                        event.allDay = false;
+                    }
+                },
+                selectable: true,
+                selectHelper: true,
+                select: function(start, end, allDay) {
+                    if (title) {
+                        
+                        var start = $.fullCalendar.moment(start).format();
+                        var end = $.fullCalendar.moment(end).format();
+                        $.ajax({
+                            data: 'title='+ title+'&start='+ start +'&end='+ end +'&url='+ url ,
+                            type: "POST",
+                            success: function(json) {
+                                alert('Added Successfully');
+                            }
+                        });
+                        calendar.fullCalendar('renderEvent',
+                            {
+                                title: title,
+                                start: start,
+                                end: end,
+                                allDay: allDay
+                            },
+                            true // make the event "stick"
+                        );
+                    }
+                },
+
+                editable: true,
+                eventDrop: function(event, delta) {
+                        var start = $.fullCalendar.moment(start).format();
+                        var end = $.fullCalendar.moment(end).format();
+                        $.ajax({
+                            data: 'title=' + event.title + '&start='+ start +'&end=' + end + '&id=' + event.id ,
+                            type: "POST",
+                            success: function(json) {   
+                                alert("Updated Successfully");
+                            }
+                        });
+                },
+                eventResize: function(event) {
+                    var start = $.fullCalendar.moment(start).format();
+                    var end = $.fullCalendar.moment(end).format();
+                    $.ajax({
+                        data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id ,
+                        type: "POST",
+                        success: function(json) {
+                        alert("Updated Successfully");
+                        }
+                    });
+                }
+
+            });
+
+        }); 
+    {% else %}
+        $(function () {
+            $('#booking').click(function(){
+                $('#bookingForm').attr("style","display : block")
+            })
+            var calendar = $('#calendar-holder').fullCalendar({
+                locale: 'pt',
+                editable: true,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: "/fc-load-events",
+                // Convert the allDay from string to boolean
+                eventRender: function(event, element, view) {
+                    if (event.allDay === 'true') {
+                        event.allDay = true;
+                    } else {
+                        event.allDay = false;
+                    }
+                },
+                selectable: true,
+                selectHelper: true,
+                select: function(start, end, allDay) {
+                    if (title) {
+                        
+                        var start = $.fullCalendar.moment(start).format();
+                        var end = $.fullCalendar.moment(end).format();
+                        $.ajax({
+                            data: 'title='+ title+'&start='+ start +'&end='+ end +'&url='+ url ,
+                            type: "POST",
+                            success: function(json) {
+                                alert('Added Successfully');
+                            }
+                        });
+                        calendar.fullCalendar('renderEvent',
+                            {
+                                title: title,
+                                start: start,
+                                end: end,
+                                allDay: allDay
+                            },
+                            true // make the event "stick"
+                        );
+                    }
+                },
+
+                editable: true,
+                eventDrop: function(event, delta) {
+                        var start = $.fullCalendar.moment(start).format();
+                        var end = $.fullCalendar.moment(end).format();
+                        $.ajax({
+                            data: 'title=' + event.title + '&start='+ start +'&end=' + end + '&id=' + event.id ,
+                            type: "POST",
+                            success: function(json) {   
+                                alert("Updated Successfully");
+                            }
+                        });
+                },
+                eventResize: function(event) {
+                    var start = $.fullCalendar.moment(start).format();
+                    var end = $.fullCalendar.moment(end).format();
+                    $.ajax({
+                        data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id ,
+                        type: "POST",
+                        success: function(json) {
+                        alert("Updated Successfully");
+                        }
+                    });
+                }
+
+            });
+
+        }); 
+    {% endif %}
     </script>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace Application\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Application\AppBundle\Entity\User as User;
 
 /**
  * Booking
@@ -34,6 +35,11 @@ class Booking
      */
     private $title;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="idBooking")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $userId;
 
     public function getId()
     {
@@ -68,5 +74,15 @@ class Booking
     public function setTitle(string $title)
     {
         $this->title = $title;
+    }
+
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(User $userId)
+    {
+        $this->userId = $userId;
     }
 }
