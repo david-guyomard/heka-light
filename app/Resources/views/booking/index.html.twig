@@ -22,8 +22,8 @@
                     {{ form_widget(form.endAt) }}
                     {{ form_label(form.title) }}
                     {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
-                    {{ form_label(form.userId) }}
-                    {{ form_widget(form.userId) }}
+                    {{ form_label(form.userId, 'nom d\'utilisateur') }}
+                    {{ form_widget(form.userId) }}<br/>
                     <input class="btn btn-success mt-3" type="submit" value="Valider le rendez-vous" />
                 {{ form_end(form) }}
             </div>
@@ -49,6 +49,7 @@
             $('#booking').click(function(){
                 $('#bookingForm').attr("style","display : block")
             })
+            $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
             var calendar = $('#calendar-holder').fullCalendar({
                 locale: 'fr',
                 editable: true,
@@ -123,7 +124,8 @@
         $(function () {
             $('#booking').click(function(){
                 $('#bookingForm').attr("style","display : block")
-            })
+            });
+            $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
             var calendar = $('#calendar-holder').fullCalendar({
                 locale: 'en',
                 editable: true,
@@ -198,7 +200,8 @@
         $(function () {
             $('#booking').click(function(){
                 $('#bookingForm').attr("style","display : block")
-            })
+            });
+            $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
             var calendar = $('#calendar-holder').fullCalendar({
                 locale: 'pt',
                 editable: true,
