@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Application\AppBundle\Entity\User;
 
@@ -27,7 +28,13 @@ class BookingType extends AbstractType
             "time_widget" => "single_text"
         )
         )
-        ->add('title')
+        ->add('title', ChoiceType::class, array(
+            "choices" => [
+                "Soin energetique avec massage - 60 €" => "avec massage",
+                "Soin energetique sans massage - 50 €" => "sans massage",
+                "Soin energetique à distance - 30 €" => "a distance"
+            ]
+        ))
         ->add('userId');
     }/**
      * {@inheritdoc}

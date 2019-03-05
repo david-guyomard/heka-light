@@ -55,7 +55,80 @@
     </div>
 {% endif %}
 {% if 'therapie' in app.request.uri %} 
-    <div> page thérapie </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <img class="img-fluid" src="{{ asset('images/rocher.jpeg') }}"/>
+            </div>
+            <div class="col">
+            {% for product in products %}
+                {% if app.request.locale =="fr" and product.getLocale == "fr" and product.getTitle == "therapie_1" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if app.request.locale =="en" and product.getLocale == "en" and product.getTitle == "therapie_1" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "therapie_1" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+            {% for product in products %}
+                {% if app.request.locale =="fr" and product.getLocale == "fr" and product.getTitle == "therapie_2" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if app.request.locale =="en" and product.getLocale == "en" and product.getTitle == "therapie_2" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "therapie_2" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+            {% for product in products %}
+                {% if app.request.locale =="fr" and product.getLocale == "fr" and product.getTitle == "therapie_3" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if app.request.locale =="en" and product.getLocale == "en" and product.getTitle == "therapie_3" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "therapie_3" %}
+                    {{ product.getDescription | raw }}
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endfor %}
+            </div>
+            <div class="col-4">
+                <img class="img-fluid" src="{{ asset('images/arbre.jpg') }}" />
+            </div>
+        </div>
+    </div>
 {% endif %}
 {% if 'kundalini' in app.request.uri %} 
     <div> page kundalini </div>

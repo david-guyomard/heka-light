@@ -72,5 +72,5 @@ security:
         - { path: ^/sonata, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
-        - { path: ^/fr/admin, role: ROLE_ADMIN }
-        - { path: ^/en/admin, role: ROLE_ADMIN }
+        - { path: ^/fr/admin/^, role: ROLE_ADMIN }
+        - { path: ^/en/admin/^, role: ROLE_ADMIN }

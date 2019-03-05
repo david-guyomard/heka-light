@@ -36,6 +36,20 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+    <style>
+        #application_appbundle_booking_userId {
+            /* for Firefox */
+            -moz-appearance: none;
+            /* for Chrome */
+            -webkit-appearance: none;
+        }
+
+        /* For IE10 */
+        #application_appbundle_booking_userId::-ms-expand {
+            display: none;
+        }
+        
+    </style>
 {% endblock %}
 
 {% block javascripts %}
@@ -49,7 +63,9 @@
             $('#booking').click(function(){
                 $('#bookingForm').attr("style","display : block")
             })
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
             $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
+            {% endif %}
             var calendar = $('#calendar-holder').fullCalendar({
                 locale: 'fr',
                 editable: true,
@@ -59,13 +75,10 @@
                     right: 'month,agendaWeek,agendaDay'
                 },
                 events: "/fc-load-events",
-                // Convert the allDay from string to boolean
-                eventRender: function(event, element, view) {
-                    if (event.allDay === 'true') {
-                        event.allDay = true;
-                    } else {
-                        event.allDay = false;
-                    }
+                businessHours: {
+                    start: '09:00',
+                    end: '18:00',
+                    dow: [1, 2, 3, 4, 5]
                 },
                 selectable: true,
                 selectHelper: true,
