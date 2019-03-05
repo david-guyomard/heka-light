@@ -34,7 +34,7 @@ class BookingController extends Controller
      * @Route("/", name="booking_index")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, \Swift_Mailer $mailer)
     {
         $booking = new Booking();
         $form = $this->createForm('Application\AppBundle\Form\BookingType', $booking);
@@ -45,7 +45,23 @@ class BookingController extends Controller
             $em->persist($booking);
             $em->flush();
 
-            return $this->redirectToRoute('booking_index', array('id' => $booking->getId()));
+            $message = (new \Swift_Message('Nouvelle reservation !'))
+            ->setFrom('send@example.com')
+            ->setTo('david.guyomard@live.fr')
+            ->setBody(
+                $this->renderView(
+                    // app/Resources/views/Emails/registration.html.twig
+                    'emails/new_event.email.twig',
+                    ['reservation' => $booking->getBeginAt()]
+                ),
+                'text/html'
+            );
+
+            $mailer->send($message);
+            return $this->redirectToRoute('booking_index', array(
+                'id' => $booking->getId()
+            ));
+            
         }
 
         return $this->render('booking/index.html.twig', array(

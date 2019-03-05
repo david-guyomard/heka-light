@@ -1,0 +1,10 @@
+{% block body_text %}
+{% autoescape false %}
+
+    Une réservation vient d'être effectuée :
+    {{ app.user.username }}
+    le {{ reservation|date('d/m/Y H:i:s') }}
+
+
+{% endautoescape %}
+{% endblock %}
