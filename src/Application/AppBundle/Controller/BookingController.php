@@ -52,7 +52,10 @@ class BookingController extends Controller
                 $this->renderView(
                     // app/Resources/views/Emails/registration.html.twig
                     'emails/new_event.email.twig',
-                    ['reservation' => $booking->getBeginAt()]
+                    [
+                        'date_reservation' => $booking->getBeginAt(),
+                        'type_reservation' => $booking->getTitle()
+                    ]
                 ),
                 'text/html'
             );

@@ -30,9 +30,9 @@ class BookingType extends AbstractType
         )
         ->add('title', ChoiceType::class, array(
             "choices" => [
-                "Soin energetique avec massage - 60 €" => "avec massage",
-                "Soin energetique sans massage - 50 €" => "sans massage",
-                "Soin energetique à distance - 30 €" => "a distance"
+                "Soin energetique avec massage - 60 €" => "Soin energetique avec massage",
+                "Soin energetique sans massage - 50 €" => "Soin energetique sans massage",
+                "Soin energetique à distance - 30 €" => "Soin energetique à distance"
             ]
         ))
         ->add('userId');

@@ -3,7 +3,8 @@
 
     Une réservation vient d'être effectuée :
     {{ app.user.username }}
-    le {{ reservation|date('d/m/Y H:i:s') }}
+    a réservé pour "{{ type_reservation }}" <br/>
+    le {{ date_reservation|date('d/m/Y H:i:s') }}
 
 
 {% endautoescape %}
