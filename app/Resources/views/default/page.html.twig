@@ -2,11 +2,11 @@
 {% block body %}
 {% if 'pratique' in app.request.uri %}
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-5">
-                <img class="img-fluid" src="{{ asset('images/pratique.jpg') }}"/>
-            </div>
-            <div class="col">
+        <div class="media">
+            
+            <img class="img-fluid align-self-center col-5 mb-3" src="{{ asset('images/pratique.jpg') }}" alt="heka-light, heka, light, heka light"/>
+            
+            <div class="media-body">
             {% for product in products %}
                 {% if app.request.locale =="fr" and product.getLocale == "fr" and product.getTitle == "pratique_1" %}
                     {{ product.getDescription | raw }}
@@ -17,7 +17,7 @@
                 {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "pratique_1" %}
                     {{ product.getDescription | raw }}
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') and product.id =="1" %}
                     <ul>
                         <li>
                             <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
@@ -27,8 +27,8 @@
             {% endfor %}
             </div>
         </div>
-        <div class="row">
-            <div class="col">
+        <div class="media">
+            <div class="media-body">
             {% for product in products %}
                 {% if app.request.locale =="fr" and product.getLocale == "fr" and product.getTitle == "pratique_2" %}
                     {{ product.getDescription | raw }}
@@ -39,7 +39,7 @@
                 {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "pratique_2" %}
                     {{ product.getDescription | raw }}
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') and product.id =="2" %}
                     <ul>
                         <li>
                             <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
@@ -48,19 +48,17 @@
                 {% endif %}
             {% endfor %}
             </div>
-            <div class="col-3">
-                <img class="img-fluid" src="{{ asset('images/CE.jpg') }}" />
-            </div>
+            <img class="img-fluid col-4 align-self-center" src="{{ asset('images/CE.jpg') }}" alt="heka-light, heka, light, heka light" />
         </div>
     </div>
 {% endif %}
 {% if 'therapie' in app.request.uri %} 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-4">
-                <img class="img-fluid" src="{{ asset('images/rocher.jpeg') }}"/>
-            </div>
-            <div class="col">
+        <div class="media">
+            
+            <img class=" col-6 img-fluid align-self-center mb-3" src="{{ asset('images/rocher.jpeg') }}" alt="heka-light, heka, light, heka light"/>
+            
+            <div class="media-body">
             {% for product in products %}
                 {% if app.request.locale =="fr" and product.getLocale == "fr" and product.getTitle == "therapie_1" %}
                     {{ product.getDescription | raw }}
@@ -71,9 +69,10 @@
                 {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "therapie_1" %}
                     {{ product.getDescription | raw }}
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') and product.id =="3" %}
                     <ul>
                         <li>
+                            
                             <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
                         </li>
                     </ul>
@@ -93,7 +92,7 @@
                 {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "therapie_2" %}
                     {{ product.getDescription | raw }}
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') and product.id =="4" %}
                     <ul>
                         <li>
                             <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
@@ -103,8 +102,8 @@
             {% endfor %}
             </div>
         </div>
-        <div class="row">
-            <div class="col">
+        <div class="media">
+            <div class="media-body">
             {% for product in products %}
                 {% if app.request.locale =="fr" and product.getLocale == "fr" and product.getTitle == "therapie_3" %}
                     {{ product.getDescription | raw }}
@@ -115,7 +114,7 @@
                 {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "therapie_3" %}
                     {{ product.getDescription | raw }}
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') and product.id =="5" %}
                     <ul>
                         <li>
                             <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
@@ -124,9 +123,9 @@
                 {% endif %}
             {% endfor %}
             </div>
-            <div class="col-4">
-                <img class="img-fluid" src="{{ asset('images/arbre.jpg') }}" />
-            </div>
+            
+            <img class="col-5 img-fluid align-self-center" src="{{ asset('images/arbre.jpg') }}" alt="heka-light, heka, light, heka light" />
+            
         </div>
     </div>
 {% endif %}
