@@ -65,6 +65,13 @@
                 {% if app.request.locale =="pt" and product.getLocale == "pt" and product.getTitle == "homepage" %}
                     {{ product.getDescription | raw }}
                 {% endif %}
+                {% if is_granted('ROLE_ADMIN') and product.id =="6" %}
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
+                        </li>
+                    </ul>
+                {% endif %}
             {% endfor %}
             </div>
         </div>
