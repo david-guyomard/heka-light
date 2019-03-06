@@ -39,12 +39,18 @@ class BookingController extends Controller
         $booking = new Booking();
         $form = $this->createForm('Application\AppBundle\Form\BookingType', $booking);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            $beginAt = $booking->getBeginAt();
+            $booking->setBeginAt($beginAt);
+            $endAt = clone $beginAt;
+            $endAt->modify('+3600 seconds');
+            $booking->setEndAt($endAt);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($booking);
             $em->flush();
-
+          
             $message = (new \Swift_Message('Nouvelle reservation !'))
             ->setFrom('send@example.com')
             ->setTo('david.guyomard@live.fr')
@@ -61,6 +67,7 @@ class BookingController extends Controller
             );
 
             $mailer->send($message);
+            
             return $this->redirectToRoute('booking_index', array(
                 'id' => $booking->getId()
             ));

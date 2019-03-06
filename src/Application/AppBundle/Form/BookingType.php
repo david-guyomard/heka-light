@@ -20,19 +20,16 @@ class BookingType extends AbstractType
     {
         $builder->add('beginAt', DateTimeType::class, array(
             "date_widget" => "single_text",
-            "time_widget" => "single_text"
-        )
-        )
-        ->add('endAt', DateTimeType::class, array(
-            "date_widget" => "single_text",
-            "time_widget" => "single_text"
+            "time_widget" => "choice",
+            "hours" => range(9,18),
+            "minutes" => range(0,59,15)
         )
         )
         ->add('title', ChoiceType::class, array(
             "choices" => [
-                "Soin energetique avec massage - 60 €" => "Soin energetique avec massage",
-                "Soin energetique sans massage - 50 €" => "Soin energetique sans massage",
-                "Soin energetique à distance - 30 €" => "Soin energetique à distance"
+                "Soin energetique avec massage 1h - 60 €" => "Soin energetique avec massage",
+                "Soin energetique sans massage 1h - 50 €" => "Soin energetique sans massage",
+                "Soin energetique à distance 1h - 30 €" => "Soin energetique à distance"
             ]
         ))
         ->add('userId');

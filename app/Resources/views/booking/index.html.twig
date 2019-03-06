@@ -18,10 +18,14 @@
                     
                     {{ form_label(form.beginAt) }}
                     {{ form_widget(form.beginAt) }}
-                    {{ form_label(form.endAt) }}
-                    {{ form_widget(form.endAt) }}
                     {{ form_label(form.title) }}
-                    {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_widget(form.title, { 'attr': {
+                                    'class': 'form-control',
+                                    'style': 'font-size:20px; padding:0'
+                                }
+                            }
+                        )
+                    }}
                     {{ form_label(form.userId, 'nom d\'utilisateur') }}
                     {{ form_widget(form.userId) }}<br/>
                     <input class="btn btn-success mt-3" type="submit" value="Valider le rendez-vous" />
@@ -63,6 +67,11 @@
             $('#booking').click(function(){
                 $('#bookingForm').attr("style","display : block")
             })
+            $('#application_appbundle_booking_beginAt_time').attr('class','row');
+            $('#application_appbundle_booking_beginAt_time_hour').attr('class','form-control col-3');
+            $('#application_appbundle_booking_beginAt_time_minute').attr('class','form-control col-3');
+            
+            
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
             $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
             {% endif %}
@@ -148,13 +157,10 @@
                     right: 'month,agendaWeek,agendaDay'
                 },
                 events: "/fc-load-events",
-                // Convert the allDay from string to boolean
-                eventRender: function(event, element, view) {
-                    if (event.allDay === 'true') {
-                        event.allDay = true;
-                    } else {
-                        event.allDay = false;
-                    }
+                businessHours: {
+                    start: '09:00',
+                    end: '18:00',
+                    dow: [1, 2, 3, 4, 5]
                 },
                 selectable: true,
                 selectHelper: true,
@@ -224,13 +230,10 @@
                     right: 'month,agendaWeek,agendaDay'
                 },
                 events: "/fc-load-events",
-                // Convert the allDay from string to boolean
-                eventRender: function(event, element, view) {
-                    if (event.allDay === 'true') {
-                        event.allDay = true;
-                    } else {
-                        event.allDay = false;
-                    }
+                businessHours: {
+                    start: '09:00',
+                    end: '18:00',
+                    dow: [1, 2, 3, 4, 5]
                 },
                 selectable: true,
                 selectHelper: true,

@@ -39,22 +39,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                 {% if app.request.locale == "fr"%}
-                    <li class="nav-item">
+                    <li class="nav-item {% if app.request.get('_route') == 'homepage' %} active {% endif %}">
                         <a class="nav-link" href="{{ path('homepage.fr') }}">ACCUEIL</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'pratique' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.fr', {'slug': 'pratique'})}}">MA PRATIQUE</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'therapie' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.fr' , {'slug': 'therapie'})}}">THERAPIE QUANTIQUE ?</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'kundalini' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.fr', {'slug': 'kundalini'})}}">EVEIL KUNDALINI</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'evenements' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.fr', {'slug': 'evenements'})}}">EVENEMENTS</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'agenda' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('booking_index.fr') }}">AGENDA</a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
@@ -65,7 +65,7 @@
                             <a class="nav-link" href="{{ path('sonata_user_admin_security_logout') }}">Se déconnecter</a>
                         </li>
                     {% elseif is_granted('ROLE_USER') %}
-                        <li class="nav-item">
+                        <li class="nav-item {% if 'users' in app.request.uri %} active {% endif %}">
                             <a class="nav-link" href="{{ path('user.fr') }}">Mon compte</a>
                         </li>
                         <li class="nav-item">
@@ -89,40 +89,40 @@
                         </li>
                     {% endif %}
                 {% elseif app.request.locale == "pt" %}
-                    <li class="nav-item">
+                    <li class="nav-item {% if app.request.get('_route') == 'homepage' %} active {% endif %}">
                         <a class="nav-link" href="{{ path('homepage.pt') }}"> HOMEPAGE </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'pratique' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.pt', {'slug': 'pratique'})}}">MINHA PRATICA</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'therapie' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.pt' , {'slug': 'therapie'})}}">TERAPIA QUANTICA ?</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'kundalini' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.pt', {'slug': 'kundalini'})}}">DESPERTAR KUNDALINI</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'evenements' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.pt', {'slug': 'evenements'})}}">EVENTOS</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'agenda' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('booking_index.pt') }}">AGENDA</a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item">
+                        <li class="nav-item {% if 'users' in app.request.uri %} active {% endif %}">
                             <a class="nav-link" href="{{ path('sonata_admin_dashboard') }}">minha conta</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('sonata_user_admin_security_logout') }}">desconectar</a>
                         </li>
                     {% elseif is_granted('ROLE_USER') %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('user.pt') }}">minha conta</a>
+                        <li class="nav-item {% if 'users' in app.request.uri %} active {% endif %}">
+                            <a class="nav-link " href="{{ path('user.pt') }}">minha conta</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('sonata_user_admin_security_logout') }}">desconectar</a>
                         </li>
                     {% else %}
-                        <li class="nav-item">
+                        <li class="nav-item {% if 'login' in app.request.uri %} active {% endif %}">
                             <a class="nav-link" href="{{ path('sonata_user_admin_security_login') }}">Ligar</a>
                         </li>
                     {% endif %}
@@ -139,40 +139,40 @@
                     </li>
                     {% endif %}
                 {% else %}
-                    <li class="nav-item">
+                    <li class="nav-item {% if app.request.get('_route') == 'homepage' %} active {% endif %}">
                         <a class="nav-link" href="{{ path('homepage.en') }}">HOMEPAGE</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'pratique' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.en', {'slug': 'pratique'})}}">MY PRACTICE</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'therapie' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.en' , {'slug': 'therapie'})}}">QUANTUM THERAPY ?</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'kundalini' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.en', {'slug': 'kundalini'})}}">AWAKENING KUNDALINI</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'evenements' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('page.en', {'slug': 'evenements'})}}">EVENTS</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'agenda' in app.request.uri %} active {% endif %}">
                         <a class="nav-link" href="{{ path('booking_index.en') }}">AGENDA</a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item">
+                        <li class="nav-item {% if 'users' in app.request.uri %} active {% endif %}">
                             <a class="nav-link" href="{{ path('sonata_admin_dashboard') }}">my account</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('sonata_user_admin_security_logout') }}">logout</a>
                         </li>
                     {% elseif is_granted('ROLE_USER') %}
-                        <li class="nav-item">
+                        <li class="nav-item {% if 'users' in app.request.uri %} active {% endif %}">
                             <a class="nav-link" href="{{ path('user.en') }}">my account</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('sonata_user_admin_security_logout') }}">logout</a>
                         </li>
                     {% else %}
-                        <li class="nav-item">
+                        <li class="nav-item {% if 'login' in app.request.uri %} active {% endif %}">
                             <a class="nav-link" href="{{ path('sonata_user_admin_security_login') }}">Login</a>
                         </li>
                     {% endif %}
