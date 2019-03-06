@@ -13,23 +13,61 @@
             {% endif %}
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
             <div class="col" style="display : none" id="bookingForm">
+                {% if app.request.locale =="fr" %}
                 {{ form_start(form) }}
                     {#{{ form_widget(form) }}#}
                     
-                    {{ form_label(form.beginAt) }}
+                    {{ form_label(form.beginAt, 'début du rendez-vous' )}}
                     {{ form_widget(form.beginAt) }}
-                    {{ form_label(form.title) }}
-                    {{ form_widget(form.title, { 'attr': {
-                                    'class': 'form-control',
-                                    'style': 'font-size:20px; padding:0'
-                                }
+                    {{ form_label(form.title, 'quel type de prestation souhaitez-vous ?') }}
+                    {{ form_widget(form.title, { 
+                            'attr': {
+                                'class': 'form-control',
+                                'style': 'font-size:20px; padding:0'
                             }
-                        )
+                        })
                     }}
                     {{ form_label(form.userId, 'nom d\'utilisateur') }}
                     {{ form_widget(form.userId) }}<br/>
                     <input class="btn btn-success mt-3" type="submit" value="Valider le rendez-vous" />
                 {{ form_end(form) }}
+                {% elseif app.request.locale == "en" %}
+                {{ form_start(form) }}
+                    {#{{ form_widget(form) }}#}
+                    
+                    {{ form_label(form.beginAt, 'begin at ?' )}}
+                    {{ form_widget(form.beginAt) }}
+                    {{ form_label(form.title, 'what kind of prestation ?') }}
+                    {{ form_widget(form.title, { 
+                            'attr': {
+                                'class': 'form-control',
+                                'style': 'font-size:20px; padding:0'
+                            }
+                        })
+                    }}
+                    {{ form_label(form.userId, 'username') }}
+                    {{ form_widget(form.userId) }}<br/>
+                    <input class="btn btn-success mt-3" type="submit" value="confirm" />
+                {{ form_end(form) }}
+                {% else %}
+                {{ form_start(form) }}
+                    {#{{ form_widget(form) }}#}
+                    
+                    {{ form_label(form.beginAt, 'início da consulta' )}}
+                    {{ form_widget(form.beginAt) }}
+                    {{ form_label(form.title, 'que tipo de serviço você quer ?') }}
+                    {{ form_widget(form.title, { 
+                            'attr': {
+                                'class': 'form-control',
+                                'style': 'font-size:20px; padding:0'
+                            }
+                        })
+                    }}
+                    {{ form_label(form.userId, 'username') }}
+                    {{ form_widget(form.userId) }}<br/>
+                    <input class="btn btn-success mt-3" type="submit" value="confirmar a consulta" />
+                {{ form_end(form) }}
+                {% endif %}
             </div>
             {% endif %}
             
