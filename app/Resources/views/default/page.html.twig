@@ -51,8 +51,7 @@
             <img class="img-fluid col-6 col-md-4 align-self-center" src="{{ asset('images/CE.jpg') }}" alt="heka-light, heka, light, heka light" />
         </div>
     </div>
-{% endif %}
-{% if 'therapie' in app.request.uri %} 
+{% elseif 'therapie' in app.request.uri %} 
     <div class="container-fluid">
         <div class="media">
             
@@ -128,11 +127,9 @@
             
         </div>
     </div>
-{% endif %}
-{% if 'kundalini' in app.request.uri %} 
+{% elseif 'kundalini' in app.request.uri %} 
     <div> page kundalini </div>
-{% endif %}
-{% if 'evenements' in app.request.uri %} 
+{% elseif 'evenements' in app.request.uri %} 
     <div> page evenements </div>
 {% endif %}
 {% endblock %}

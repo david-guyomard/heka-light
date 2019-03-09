@@ -96,13 +96,12 @@ fos_user:
     group:
         group_class:   Application\Sonata\UserBundle\Entity\Group
         group_manager: sonata.user.orm.group_manager # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
-    service:
-        user_manager: sonata.user.orm.user_manager
     from_email:
         address: "admin@project-symfony.fr"
         sender_name: "Administrator"
     service:
         mailer: fos_user.mailer.twig_swift
+        user_manager: sonata.user.orm.user_manager
     registration:
         confirmation:
             enabled: true
@@ -120,7 +119,7 @@ swiftmailer:
     spool: { type: memory }
 
 sensio_framework_extra:
-   router:
+    router:
         annotations: false
 
 sonata_block:
@@ -136,11 +135,3 @@ sonata_user:
     manager_type: orm # can be orm or mongodb
     impersonating:
         route: user
-        
-# fos_ck_editor:
-#     configs:
-#         my_config:
-#             toolbar: [ ["Source", "-", "Save"], "/", ["Anchor"], "/", ["Maximize"] ]
-#             uiColor:                "#000000"
-#             filebrowserUploadRoute: "admin_product_new"
-#             extraPlugins:           "wordcount"

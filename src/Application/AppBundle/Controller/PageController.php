@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Page controller.
  *
- * @Route("pages")
+ * @Route("admin/pages")
  */
 class PageController extends Controller
 {

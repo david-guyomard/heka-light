@@ -26,52 +26,29 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/product", name="productspage")
-     */
-    public function productListAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('AppBundle:Product')->findAll();
-        return $this->render('default/products.html.twig', [
-            'products' => $products
-        ]);
-    }
-
-    /**
      * @Route("/{slug}", name="page")
      */
-    public function pageAction(Request $request, $slug)
+    public function pageAction(Request $request)
     {
 
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository('AppBundle:Product')->findAll();
         $pages = $em->getRepository('AppBundle:Page')->findAll();
-        
-        switch($request->getLocale()){
-            case "pt":
-                $var = "hola";
-                
-                break;
-            case "en":
-                $var = "hello";
-                break;
-            case "fr":
-            default:
-                $var = "salut";
-                break;
-        }
 
-        if ($slug == 'pratique' || $slug == 'therapie' || $slug == 'kundalini' || $slug == 'evenements') {
-            $this->generateUrl('page', array('slug'=>$slug));
-            return $this->render('default/page.html.twig', array (
-                "welcome_mess" => $var,
-                "products" => $products,
-                'pages' => $pages,
-            ));
-        } else {
-            return $this->render('default/page.html.twig'); 
+        foreach ($pages as $page){
+            $slug[] = $page->getSlug();
+        }
+        for ($i = 0; $i < count($slug); $i++) { 
+            $url[] = $this->generateUrl('page', array('slug'=>$slug[$i]));  
+        }
+        if (!in_array($request->getRequestUri(), $url)) {
+            throw $this->createNotFoundException('This page does not exist');
         }
         
+        return $this->render('default/page.html.twig', array (
+            "products" => $products,
+            'pages' => $pages,
+        ));
     }
 
     /**
@@ -87,7 +64,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/admin/users", name="user")
+     * @Route("/user/me", name="user")
      */
     public function usersAction(Request $request)
     {
