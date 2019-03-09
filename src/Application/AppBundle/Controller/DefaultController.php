@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class DefaultController extends Controller
 {
@@ -52,6 +53,7 @@ class DefaultController extends Controller
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/admin/users/list", name="userspage")
      */
     public function userListAction(Request $request)
@@ -64,6 +66,7 @@ class DefaultController extends Controller
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/user/me", name="user")
      */
     public function usersAction(Request $request)
