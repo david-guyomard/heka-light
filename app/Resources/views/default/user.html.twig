@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .actions{
+            background-color : #c6c6c696;
+        }
+        .content {
+            background-color: #f1f1f1;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-6">
+                {% if app.request.locale == "fr" %}
+                    <div class="text-center">
+                        Nom d'utilisateur : {{ app.user }}
+                    </div>
+                    <h1 class="text-center">Mes réservations</h1>
+                    {% for booking in bookings %}
+                        {% if booking %}
+                            {% if app.user.username == booking.userId %}
+                                <div class="row">
+                                    <div class="content text-secondary col">
+                                        <div>
+                                            Le : 
+                                            {{ booking.beginAt|date('d/m/Y') }}
+                                            de 
+                                            {{ booking.beginAt|date('G:i') }}
+                                            à 
+                                            {{ booking.endAt|date('G:i') }}
+                                        </div>
+                                    
+                                        <div>{{ booking.title }}</div>
+                                    </div>
+                                    <div class="actions p-3">  
+                                        <a href="{{ path('booking_edit', { 'id': booking.id }) }}" class="fa fa-edit fa-lg" data-toggle="tooltip" data-placement="right" title="Modifier le rendez-vous"></a> 
+                                        <a href="{{ path('booking_show', { 'id': booking.id }) }}" class="fa fa-eye fa-lg" data-toggle="tooltip" data-placement="right" title="Visualiser/supprimer le rendez-vous"></a>
+                                    </div>
+                                </div>
+                                <hr class="col-8 ">
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% elseif app.request.locale == "en" %}
+                    <div class="text-center">
+                        Username : {{ app.user }}
+                    </div>
+                    <h1 class="text-center">My bookings</h1>
+                    {% for booking in bookings %}
+                        {% if booking %}
+                            {% if app.user.username == booking.userId %}
+                                <div class="row">
+                                    <div class="content text-secondary col">
+                                        <div>
+                                            The : 
+                                            {{ booking.beginAt|date('Y dS F ') }}
+                                            From
+                                            {{ booking.beginAt|date('H:i a') }}
+                                            - to 
+                                            {{ booking.endAt|date(' H:i a') }}
+                                        </div>
+                                    
+                                        <div>{{ booking.title }}</div>
+                                    </div>
+                                    <div class="actions p-3">  
+                                        <a href="{{ path('booking_edit', { 'id': booking.id }) }}" class="fa fa-edit fa-lg" data-toggle="tooltip" data-placement="right" title="Edit the appointment"></a> 
+                                        <a href="{{ path('booking_show', { 'id': booking.id }) }}" class="fa fa-eye fa-lg" data-toggle="tooltip" data-placement="right" title="View / delete the appointment"></a>
+                                    </div>
+                                </div>
+                                <hr class="col-8 ">
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center">
+                        Username : {{ app.user }}
+                    </div>
+                    <h1 class="text-center">Minhas reservas</h1>
+                    {% for booking in bookings %}
+                        {% if booking %}
+                            {% if app.user.username == booking.userId %}
+                                <div class="row">
+                                    <div class="content text-secondary col">
+                                        <div>
+                                            O 
+                                            {{ booking.beginAt|date('d/m/Y') }}
+                                            - do 
+                                            {{ booking.beginAt|date('G:i') }}
+                                            às 
+                                            {{ booking.endAt|date('G:i') }}
+                                        </div>
+                                    
+                                        <div>{{ booking.title }}</div>
+                                    </div>
+                                    <div class="actions p-3">  
+                                        <a href="{{ path('booking_edit', { 'id': booking.id }) }}" class="fa fa-edit fa-lg" data-toggle="tooltip" data-placement="right" title="edite o compromisso"></a> 
+                                        <a href="{{ path('booking_show', { 'id': booking.id }) }}" class="fa fa-eye fa-lg" data-toggle="tooltip" data-placement="right" title="Visualizar / excluir o compromisso"></a>
+                                    </div>
+                                </div>
+                                <hr class="col-8 ">
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    
+    {% endif %}
+{% endblock %}

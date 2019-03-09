@@ -74,7 +74,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository('AppBundle:Booking')->findAll();
         $users = $em->getRepository('AppBundle:User')->findAll();
-        return $this->render('default/users.html.twig', [
+        return $this->render('default/user.html.twig', [
             'users' => $users,
             'bookings'=> $booking
         ]);
