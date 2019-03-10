@@ -3,71 +3,133 @@
     
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-10">
                 {% include '@FullCalendar/Calendar/calendar.html.twig' %}
             </div>
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                <button class="btn" id="booking">Prendre un rendez-vous</button>
-            {% else %}
-                <a href="{{ path('sonata_user_admin_security_login') }}">Se connecter/créer un compte pour prendre un rendez-vous</a>
-            {% endif %}
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-            <div class="col" style="display : none" id="bookingForm">
                 {% if app.request.locale =="fr" %}
-                {{ form_start(form) }}
-                    {#{{ form_widget(form) }}#}
-                    
-                    {{ form_label(form.beginAt, 'début du rendez-vous' )}}
-                    {{ form_widget(form.beginAt) }}
-                    {{ form_label(form.title, 'quel type de prestation souhaitez-vous ?') }}
-                    {{ form_widget(form.title, { 
-                            'attr': {
-                                'class': 'form-control',
-                                'style': 'font-size:20px; padding:0'
-                            }
-                        })
-                    }}
-                    {{ form_label(form.userId, 'nom d\'utilisateur') }}
-                    {{ form_widget(form.userId) }}<br/>
-                    <input class="btn btn-success mt-3" type="submit" value="Valider le rendez-vous" />
-                {{ form_end(form) }}
+                    <button class="btn" id="booking" data-toggle="modal" data-target="#bookingForm">Prendre un rendez-vous</button>
                 {% elseif app.request.locale == "en" %}
-                {{ form_start(form) }}
-                    {#{{ form_widget(form) }}#}
-                    
-                    {{ form_label(form.beginAt, 'begin at ?' )}}
-                    {{ form_widget(form.beginAt) }}
-                    {{ form_label(form.title, 'what kind of prestation ?') }}
-                    {{ form_widget(form.title, { 
-                            'attr': {
-                                'class': 'form-control',
-                                'style': 'font-size:20px; padding:0'
-                            }
-                        })
-                    }}
-                    {{ form_label(form.userId, 'username') }}
-                    {{ form_widget(form.userId) }}<br/>
-                    <input class="btn btn-success mt-3" type="submit" value="confirm" />
-                {{ form_end(form) }}
+                    <button class="btn" id="booking" data-toggle="modal" data-target="#bookingForm">Make an appointment</button>
                 {% else %}
-                {{ form_start(form) }}
-                    {#{{ form_widget(form) }}#}
-                    
-                    {{ form_label(form.beginAt, 'início da consulta' )}}
-                    {{ form_widget(form.beginAt) }}
-                    {{ form_label(form.title, 'que tipo de serviço você quer ?') }}
-                    {{ form_widget(form.title, { 
-                            'attr': {
-                                'class': 'form-control',
-                                'style': 'font-size:20px; padding:0'
-                            }
-                        })
-                    }}
-                    {{ form_label(form.userId, 'username') }}
-                    {{ form_widget(form.userId) }}<br/>
-                    <input class="btn btn-success mt-3" type="submit" value="confirmar a consulta" />
-                {{ form_end(form) }}
+                    <button class="btn" id="booking" data-toggle="modal" data-target="#bookingForm">Marcar uma consulta</button>
                 {% endif %}
+                <div class="modal fade" id="bookingForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            
+                            {% if app.request.locale =="fr" %}
+                                <div class="modal-header">
+                                    <h1 class="modal-title" > Prendre un rendez-vous </h1>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                {{ form_start(form) }}
+                                    {{ form_label(form.beginAt, 'début du rendez-vous' )}}
+                                    {{ form_widget(form.beginAt, { 'attr' : { 'class' : 'form-row p-3', 'style': 'font-size:20px;' } }) }}
+                                    
+                                    {{ form_label(form.title, 'quel type de prestation souhaitez-vous ?') }}
+                                    {{ form_widget(form.title, { 
+                                            'attr': {
+                                                'class': 'form-control mb-3',
+                                                'style': 'font-size:20px; padding:0'
+                                            }
+                                        })
+                                    }}
+                                    
+                                    <div class="form-row">
+                                        {{ form_label(form.userId, 'nom d\'utilisateur') }}
+                                        {{ form_widget(form.userId) }}
+                                    </div>
+                                    
+                                    {{ form_label(form.address, 'Votre adresse postale') }}
+                                    {{ form_widget(form.address, { 'attr' : { 'class' : 'form-control p-0' }}) }}
+                                    <input class="btn btn-success mt-3" type="submit" value="Valider le rendez-vous" />
+                                {{ form_end(form) }}
+                            {% elseif app.request.locale == "en" %}
+                                <div class="modal-header">
+                                    <h1 class="modal-title" > Make an appointment </h1>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                {{ form_start(form) }}
+                                    {{ form_label(form.beginAt, 'begin at ?' )}}
+                                    {{ form_widget(form.beginAt, { 'attr' : { 'class' : 'form-row p-3', 'style': 'font-size:20px;' } }) }}
+                                    
+                                    {{ form_label(form.title, 'what kind of prestation ?') }}
+                                    {{ form_widget(form.title, { 
+                                            'attr': {
+                                                'class': 'form-control',
+                                                'style': 'font-size:20px; padding:0'
+                                            }
+                                        })
+                                    }}
+
+                                    <div class="form-row">
+                                        {{ form_label(form.userId, 'username') }}
+                                        {{ form_widget(form.userId) }}
+                                    </div>
+
+                                    {{ form_label(form.address, 'Your own address') }}
+                                    {{ form_widget(form.address, { 'attr' : { 'class' : 'form-control p-0' }}) }}
+
+                                    <input class="btn btn-success mt-3" type="submit" value="confirm" />
+                                {{ form_end(form) }}
+                            {% else %}
+                                <div class="modal-header">
+                                    <h1 class="modal-title" > Marcar uma consulta </h1>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                {{ form_start(form) }}
+                                    {{ form_label(form.beginAt, 'início da consulta' )}}
+                                    {{ form_widget(form.beginAt, { 'attr' : { 'class' : 'form-row p-3', 'style': 'font-size:20px;' } }) }}
+
+                                    {{ form_label(form.title, 'que tipo de serviço você quer ?') }}
+                                    {{ form_widget(form.title, { 
+                                            'attr': {
+                                                'class': 'form-control',
+                                                'style': 'font-size:20px; padding:0'
+                                            }
+                                        })
+                                    }}
+
+                                    <div class="form-row">
+                                        {{ form_label(form.userId, 'username') }}
+                                        {{ form_widget(form.userId) }}
+                                    </div>
+
+                                    {{ form_label(form.address, 'Seu endereço postal') }}
+                                    {{ form_widget(form.address, { 'attr' : { 'class' : 'form-control p-0' }}) }}
+
+                                    <input class="btn btn-success mt-3" type="submit" value="confirmar a consulta" />
+                                {{ form_end(form) }}
+                            {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {# <div class="col" id="bookingForm"> #}
+                    
+                </div>
+            {% else %}
+            <div class="col">
+                {% if app.request.locale=="fr" %}
+                    <a href="{{ path('sonata_user_admin_security_login') }}">Se connecter/créer un compte pour prendre un rendez-vous</a>
+                {% elseif app.request.locale=="en" %}
+                    <a href="{{ path('sonata_user_admin_security_login') }}">Sign in / create an account to make an appointment</a>
+                {% else %}
+                    <a href="{{ path('sonata_user_admin_security_login') }}">Entre / crie uma conta para marcar uma consulta</a>
+                {% endif %}  
             </div>
             {% endif %}
             
@@ -79,11 +141,17 @@
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
     <style>
+        #application_appbundle_booking_beginAt_time_hour, #application_appbundle_booking_beginAt_time_minute{
+            height:100%
+        }
         #application_appbundle_booking_userId {
             /* for Firefox */
             -moz-appearance: none;
             /* for Chrome */
             -webkit-appearance: none;
+            border: none;
+            background-color: transparent;
+            margin-left: 20px
         }
 
         /* For IE10 */
@@ -102,16 +170,8 @@
     <script type="text/javascript">
     {% if app.request.locale == "fr"%}
         $(function () {
-            $('#booking').click(function(){
-                $('#bookingForm').attr("style","display : block")
-            })
-            $('#application_appbundle_booking_beginAt_time').attr('class','row');
-            $('#application_appbundle_booking_beginAt_time_hour').attr('class','form-control col-3');
-            $('#application_appbundle_booking_beginAt_time_minute').attr('class','form-control col-3');
-            
-            
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-            $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
+                $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
             {% endif %}
             var calendar = $('#calendar-holder').fullCalendar({
                 locale: 'fr',
@@ -182,10 +242,9 @@
         });  
     {% elseif app.request.locale == "en" %}
         $(function () {
-            $('#booking').click(function(){
-                $('#bookingForm').attr("style","display : block")
-            });
-            $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
+            {% endif %}
             var calendar = $('#calendar-holder').fullCalendar({
                 locale: 'en',
                 editable: true,
@@ -255,10 +314,9 @@
         }); 
     {% else %}
         $(function () {
-            $('#booking').click(function(){
-                $('#bookingForm').attr("style","display : block")
-            });
-            $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
+            {% endif %}
             var calendar = $('#calendar-holder').fullCalendar({
                 locale: 'pt',
                 editable: true,

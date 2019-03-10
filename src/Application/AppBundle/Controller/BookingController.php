@@ -60,7 +60,8 @@ class BookingController extends Controller
                     'emails/new_event.email.twig',
                     [
                         'date_reservation' => $booking->getBeginAt(),
-                        'type_reservation' => $booking->getTitle()
+                        'type_reservation' => $booking->getTitle(),
+                        'adress_reservation' => $booking->getAddress()
                     ]
                 ),
                 'text/html'

@@ -1,21 +1,156 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        #application_appbundle_booking_beginAt_time_hour, #application_appbundle_booking_beginAt_time_minute{
+            height:100%
+        }
+        #application_appbundle_booking_userId {
+            /* for Firefox */
+            -moz-appearance: none;
+            /* for Chrome */
+            -webkit-appearance: none;
+            border: none;
+            background-color: transparent;
+            margin-left: 20px
+        }
 
+        /* For IE10 */
+        #application_appbundle_booking_userId::-ms-expand {
+            display: none;
+        }
+        .content {
+            border : 1px solid #c6c6c6;
+            border-radius : 10px;
+        }
+    </style>
+{% endblock %}
 {% block body %}
-    <h1>Booking edit</h1>
+    {% if app.user.username == booking.userId %}
+        <div class="container">
+            <div class=" row justify-content-center">
+                <div class="content col-4 p-4">
+                    {% if app.request.locale =="fr" %}
+                        <h1 class="text-center"> Modifier mon rendez-vous </h1>
+                        {{ form_start(edit_form) }}
+                            {{ form_label(edit_form.beginAt, 'début du rendez-vous' )}}
+                            {{ form_widget(edit_form.beginAt, { 'attr' : { 'class' : 'form-row p-3', 'style': 'font-size:20px;' } }) }}
+                            
+                            <div class="form-row">
+                            {{ form_label(edit_form.title, 'quel type de prestation souhaitez-vous ?') }}
+                            {{ form_widget(edit_form.title, { 
+                                    'attr': {
+                                        'class': 'form-control mb-3',
+                                        'style': 'font-size:20px; padding:0'
+                                    }
+                                })
+                            }}
+                            </div>
+                            <div class="form-row">
+                            {{ form_label(edit_form.userId, 'nom d\'utilisateur') }}
+                            {{ form_widget(edit_form.userId) }}<br/>
+                            </div>
+                            
+                            {{ form_label(edit_form.address, 'Votre adresse postale') }}
+                            {{ form_widget(edit_form.address, { 'attr' : { 'class' : 'form-control p-0' }}) }}
+                            <div class="d-flex justify-content-between">
+                                
+                                <div>
+                                    <a href="{{ path('booking_index') }}" class="fa fa-reply fa-3x align-self-center" data-toggle="tooltip" data-placement="right" title="Retourner à l'agenda"></a>
+                                </div>
+                                <button type="submit" class="btn" onclick="return confirm('Êtes-vous sur de vouloir changer ce rendez-vous ?');">
+                                    <i class="fa fa-edit fa-3x align-middle text-success" aria-hidden="true"></i>
+                                </button>
+                                <div>
+                                    {{ form_start(delete_form) }}
+                                        <button type="submit" onclick="return confirm('Êtes-vous sur de vouloir supprimer ce rendez-vous ?');" style="border: 0; background: none;" data-toggle="tooltip" data-placement="right" title="Supprimer le rendez-vous">
+                                            <i class="fa fa-trash-o fa-3x align-middle text-danger" aria-hidden="true"></i>
+                                        </button>
+                                    {{ form_end(delete_form) }} 
+                                </div>
+                            </div>
+                        {{ form_end(edit_form) }}
+                    {% elseif app.request.locale == "en" %}
+                        <h1 class="text-center">Edit my appointment </h1>
+                        {{ form_start(edit_form) }}
+                            {{ form_label(edit_form.beginAt, 'Begin at ?' )}}
+                            {{ form_widget(edit_form.beginAt, { 'attr' : { 'class' : 'form-row p-3', 'style': 'font-size:20px;' } }) }}
+                            
+                            <div class="form-row">
+                            {{ form_label(edit_form.title, 'what kind of prestation ?') }}
+                            {{ form_widget(edit_form.title, { 
+                                    'attr': {
+                                        'class': 'form-control mb-3',
+                                        'style': 'font-size:20px; padding:0'
+                                    }
+                                })
+                            }}
+                            </div>
+                            <div class="form-row">
+                            {{ form_label(edit_form.userId, 'username') }}
+                            {{ form_widget(edit_form.userId) }}<br/>
+                            </div>
+                            
+                            {{ form_label(edit_form.address, 'Your postal address') }}
+                            {{ form_widget(edit_form.address, { 'attr' : { 'class' : 'form-control p-0' }}) }}
+                            <div class="d-flex justify-content-between">
+                                
+                                <div>
+                                    <a href="{{ path('booking_index') }}" class="fa fa-reply fa-3x align-self-center" data-toggle="tooltip" data-placement="right" title="Back to agenda"></a>
+                                </div>
+                                <button type="submit" class="btn" onclick="return confirm('Are you sure you want to change this appointment ?');">
+                                    <i class="fa fa-edit fa-3x align-middle text-success" aria-hidden="true"></i>
+                                </button>
+                                <div>
+                                    {{ form_start(delete_form) }}
+                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this appointment ?');" style="border: 0; background: none;" data-toggle="tooltip" data-placement="right" title="Delete the appointment">
+                                            <i class="fa fa-trash-o fa-3x align-middle text-danger" aria-hidden="true"></i>
+                                        </button>
+                                    {{ form_end(delete_form) }} 
+                                </div>
+                            </div>
+                        {{ form_end(edit_form) }}
+                    {% else %}
+                        <h1 class="text-center"> Editar meu compromisso </h1>
+                        {{ form_start(edit_form) }}
+                            {{ form_label(edit_form.beginAt, 'início da consulta' )}}
+                            {{ form_widget(edit_form.beginAt, { 'attr' : { 'class' : 'form-row p-3', 'style': 'font-size:20px;' } }) }}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+                            {{ form_label(edit_form.title, 'que tipo de serviço você quer ?') }}
+                            {{ form_widget(edit_form.title, { 
+                                    'attr': {
+                                        'class': 'form-control',
+                                        'style': 'font-size:20px; padding:0'
+                                    }
+                                })
+                            }}
 
-    <ul>
-        <li>
-            <a href="{{ path('booking_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                            <div class="form-row">
+                                {{ form_label(edit_form.userId, 'username') }}
+                                {{ form_widget(edit_form.userId) }}
+                            </div>
+
+                            {{ form_label(edit_form.address, 'Seu endereço postal') }}
+                            {{ form_widget(edit_form.address, { 'attr' : { 'class' : 'form-control p-0' }}) }}
+                            <div class="d-flex justify-content-between">
+                                
+                                <div>
+                                    <a href="{{ path('booking_index') }}" class="fa fa-reply fa-3x align-self-center" data-toggle="tooltip" data-placement="right" title="Volta à agenda"></a>
+                                </div>
+                                <button type="submit" class="btn" onclick="return confirm('Tem certeza de que deseja alterar este compromisso ?');">
+                                    <i class="fa fa-edit fa-3x align-middle text-success" aria-hidden="true"></i>
+                                </button>
+                                <div>
+                                    {{ form_start(delete_form) }}
+                                        <button type="submit" onclick="return confirm('Tem certeza de que deseja excluir este compromisso ?');" style="border: 0; background: none;" data-toggle="tooltip" data-placement="right" title="Excluir o compromisso">
+                                            <i class="fa fa-trash-o fa-3x align-middle text-danger" aria-hidden="true"></i>
+                                        </button>
+                                    {{ form_end(delete_form) }} 
+                                </div>
+                            </div>
+                        {{ form_end(edit_form) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

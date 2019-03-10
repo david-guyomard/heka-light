@@ -1,40 +1,126 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .content{
+            border: 1px solid #c6c6c6;
+            border-radius : 10px;
+        }
+        a, a:hover {
+            color: grey;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Booking</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ booking.id }}</td>
-            </tr>
-            <tr>
-                <th>Beginat</th>
-                <td>{% if booking.beginAt %}{{ booking.beginAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Endat</th>
-                <td>{% if booking.endAt %}{{ booking.endAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ booking.title }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('booking_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('booking_edit', { 'id': booking.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="container">
+    {% if app.request.locale =="fr" %}
+        <div class="row justify-content-center">
+            <div class="content text-secondary col-4 p-4">
+                <div class="text-center">
+                    Le : 
+                    {{ booking.beginAt|date('d/m/Y') }}
+                    de 
+                    {{ booking.beginAt|date('G:i') }}
+                    à 
+                    {{ booking.endAt|date('G:i') }}
+                </div>
+            
+                <div class="text-center">{{ booking.title }}</div>
+                <div class="text-center"> Nom de l'utilisateur : {{ booking.userId }}</div>
+                <div class="text-center"> Adresse : {{ booking.address }}</div>
+            
+                <div class="row justify-content-center mt-3 no-gutters">  
+                    {% if app.user.username == booking.userId or is_granted('ROLE_ADMIN') %}
+                        <div class="col-2 d-flex justify-content-center">
+                            <a href="{{ path('booking_edit', { 'id': booking.id }) }}" class="fa fa-edit align-self-center" data-toggle="tooltip" data-placement="right" title="Modifier le rendez-vous"></a>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center">
+                            {{ form_start(delete_form) }}
+                                <button type="submit" onclick="return confirm('Êtes-vous sur de vouloir changer ce rendez-vous ?');" style="border: 0; background: none;" data-toggle="tooltip" data-placement="right" title="Supprimer le rendez-vous">
+                                    <i class="fa fa-trash-o fa_custom align-middle" aria-hidden="true"></i>
+                                </button>
+                            {{ form_end(delete_form) }} 
+                        </div>
+                    {% endif %}
+                    <div class="col-2 d-flex justify-content-center">
+                        <a href="{{ path('booking_index') }}" class="fa fa-reply align-self-center" data-toggle="tooltip" data-placement="right" title="Retourner à l'agenda"></a>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    {% elseif app.request.locale =="en" %}
+        <div class="row justify-content-center">
+            <div class="content text-secondary col-4 p-4">
+                <div class="text-center">
+                    The : 
+                    {{ booking.beginAt|date('Y dS F ') }}
+                    From
+                    {{ booking.beginAt|date('H:i a') }}
+                    - to 
+                    {{ booking.endAt|date(' H:i a') }}
+                </div>
+            
+                <div class="text-center">{{ booking.title }}</div>
+                <div class="text-center"> Username : {{ booking.userId }}</div>
+                <div class="text-center"> Address : {{ booking.address }}</div>
+            
+                <div class="row justify-content-center mt-3 no-gutters">  
+                    {% if app.user.username == booking.userId or is_granted('ROLE_ADMIN') %}
+                        <div class="col-2 d-flex justify-content-center">
+                            <a href="{{ path('booking_edit', { 'id': booking.id }) }}" class="fa fa-edit align-self-center" data-toggle="tooltip" data-placement="right" title="Edit the appointment"></a>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center">
+                            {{ form_start(delete_form) }}
+                                <button type="submit" onclick="return confirm('Are you sure to delete this course ?');" style="border: 0; background: none;" data-toggle="tooltip" data-placement="right" title="Delete the appointement">
+                                    <i class="fa fa-trash-o fa_custom align-middle" aria-hidden="true"></i>
+                                </button>
+                            {{ form_end(delete_form) }} 
+                        </div>
+                    {% endif %}
+                    <div class="col-2 d-flex justify-content-center">
+                        <a href="{{ path('booking_index') }}" class="fa fa-reply align-self-center" data-toggle="tooltip" data-placement="right" title="Back to agenda"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="row justify-content-center">
+            <div class="content text-secondary col-4 p-4">
+                <div class="text-center">
+                    O 
+                    {{ booking.beginAt|date('d/m/Y') }}
+                    - do 
+                    {{ booking.beginAt|date('G:i') }}
+                    às 
+                    {{ booking.endAt|date('G:i') }}
+                </div>
+            
+                <div class="text-center">{{ booking.title|trans({'%title%': 'booking'}, "app") }}</div>
+                <div class="text-center"> Username : {{ booking.userId }}</div>
+                <div class="text-center"> Endereço : {{ booking.address }}</div>
+            
+                <div class="row justify-content-center mt-3 no-gutters">  
+                    {% if app.user.username == booking.userId or is_granted('ROLE_ADMIN') %}
+                        <div class="col-2 d-flex justify-content-center">
+                            <a href="{{ path('booking_edit', { 'id': booking.id }) }}" class="fa fa-edit align-self-center" data-toggle="tooltip" data-placement="right" title="Edite o compromisso"></a>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center">
+                            {{ form_start(delete_form) }}
+                                <button type="submit" onclick="return confirm('Are you sure to delete this course ?');" style="border: 0; background: none;" data-toggle="tooltip" data-placement="right" title="Excluir o compromisso">
+                                    <i class="fa fa-trash-o fa_custom align-middle" aria-hidden="true"></i>
+                                </button>
+                            {{ form_end(delete_form) }} 
+                        </div>
+                    {% endif %}
+                    <div class="col-2 d-flex justify-content-center">
+                        <a href="{{ path('booking_index') }}" class="fa fa-reply align-self-center" data-toggle="tooltip" data-placement="right" title="Volta à agenda"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    </div>
 {% endblock %}

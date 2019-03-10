@@ -36,6 +36,11 @@ class Booking
     private $title;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="idBooking")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -74,6 +79,16 @@ class Booking
     public function setTitle(string $title)
     {
         $this->title = $title;
+    }
+
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address)
+    {
+        $this->address = $address;
     }
 
     public function getUserId()

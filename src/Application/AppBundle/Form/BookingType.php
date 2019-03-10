@@ -32,7 +32,8 @@ class BookingType extends AbstractType
                 "Soin energetique à distance 1h - 30 €" => "Soin energetique à distance"
             ]
         ))
-        ->add('userId');
+        ->add('userId')
+        ->add('address');
     }/**
      * {@inheritdoc}
      */
