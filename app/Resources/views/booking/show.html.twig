@@ -32,7 +32,7 @@
                 <div class="row justify-content-center mt-3 no-gutters">  
                     {% if app.user.username == booking.userId or is_granted('ROLE_ADMIN') %}
                         <div class="col-2 d-flex justify-content-center">
-                            <a href="{{ path('booking_edit', { 'id': booking.id }) }}" class="fa fa-edit align-self-center" data-toggle="tooltip" data-placement="right" title="Modifier le rendez-vous"></a>
+                            <a href="{{ path('booking_edit.fr', { 'id': booking.id }) }}" class="fa fa-edit align-self-center" data-toggle="tooltip" data-placement="right" title="Modifier le rendez-vous"></a>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
                             {{ form_start(delete_form) }}
@@ -43,7 +43,7 @@
                         </div>
                     {% endif %}
                     <div class="col-2 d-flex justify-content-center">
-                        <a href="{{ path('booking_index') }}" class="fa fa-reply align-self-center" data-toggle="tooltip" data-placement="right" title="Retourner à l'agenda"></a>
+                        <a href="{{ path('booking_index.fr') }}" class="fa fa-reply align-self-center" data-toggle="tooltip" data-placement="right" title="Retourner à l'agenda"></a>
                     </div>
                 </div>
                 
@@ -70,7 +70,7 @@
                 <div class="row justify-content-center mt-3 no-gutters">  
                     {% if app.user.username == booking.userId or is_granted('ROLE_ADMIN') %}
                         <div class="col-2 d-flex justify-content-center">
-                            <a href="{{ path('booking_edit', { 'id': booking.id }) }}" class="fa fa-edit align-self-center" data-toggle="tooltip" data-placement="right" title="Edit the appointment"></a>
+                            <a href="{{ path('booking_edit.en', { 'id': booking.id }) }}" class="fa fa-edit align-self-center" data-toggle="tooltip" data-placement="right" title="Edit the appointment"></a>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
                             {{ form_start(delete_form) }}
@@ -81,7 +81,7 @@
                         </div>
                     {% endif %}
                     <div class="col-2 d-flex justify-content-center">
-                        <a href="{{ path('booking_index') }}" class="fa fa-reply align-self-center" data-toggle="tooltip" data-placement="right" title="Back to agenda"></a>
+                        <a href="{{ path('booking_index.en') }}" class="fa fa-reply align-self-center" data-toggle="tooltip" data-placement="right" title="Back to agenda"></a>
                     </div>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                 <div class="row justify-content-center mt-3 no-gutters">  
                     {% if app.user.username == booking.userId or is_granted('ROLE_ADMIN') %}
                         <div class="col-2 d-flex justify-content-center">
-                            <a href="{{ path('booking_edit', { 'id': booking.id }) }}" class="fa fa-edit align-self-center" data-toggle="tooltip" data-placement="right" title="Edite o compromisso"></a>
+                            <a href="{{ path('booking_edit.pt', { 'id': booking.id }) }}" class="fa fa-edit align-self-center" data-toggle="tooltip" data-placement="right" title="Edite o compromisso"></a>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
                             {{ form_start(delete_form) }}
@@ -116,7 +116,7 @@
                         </div>
                     {% endif %}
                     <div class="col-2 d-flex justify-content-center">
-                        <a href="{{ path('booking_index') }}" class="fa fa-reply align-self-center" data-toggle="tooltip" data-placement="right" title="Volta à agenda"></a>
+                        <a href="{{ path('booking_index.pt') }}" class="fa fa-reply align-self-center" data-toggle="tooltip" data-placement="right" title="Volta à agenda"></a>
                     </div>
                 </div>
             </div>
