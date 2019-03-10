@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    
     <div class="container-fluid">
         <div class="row">
             <div class="col-10">
@@ -168,85 +167,13 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
     <script type="text/javascript">
-    {% if app.request.locale == "fr"%}
         $(function () {
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
                 $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
             {% endif %}
+            var lang = $('html').attr('lang');
             var calendar = $('#calendar-holder').fullCalendar({
-                locale: 'fr',
-                editable: true,
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                events: "/fc-load-events",
-                businessHours: {
-                    start: '09:00',
-                    end: '18:00',
-                    dow: [1, 2, 3, 4, 5]
-                },
-                selectable: true,
-                selectHelper: true,
-                select: function(start, end, allDay) {
-                    if (title) {
-                        
-                        var start = $.fullCalendar.moment(start).format();
-                        var end = $.fullCalendar.moment(end).format();
-                        $.ajax({
-                            data: 'title='+ title+'&start='+ start +'&end='+ end +'&url='+ url ,
-                            type: "POST",
-                            success: function(json) {
-                                alert('Added Successfully');
-                            }
-                        });
-                        calendar.fullCalendar('renderEvent',
-                            {
-                                title: title,
-                                start: start,
-                                end: end,
-                                allDay: allDay
-                            },
-                            true // make the event "stick"
-                        );
-                    }
-                },
-
-                editable: true,
-                eventDrop: function(event, delta) {
-                        var start = $.fullCalendar.moment(start).format();
-                        var end = $.fullCalendar.moment(end).format();
-                        $.ajax({
-                            data: 'title=' + event.title + '&start='+ start +'&end=' + end + '&id=' + event.id ,
-                            type: "POST",
-                            success: function(json) {   
-                                alert("Updated Successfully");
-                            }
-                        });
-                },
-                eventResize: function(event) {
-                    var start = $.fullCalendar.moment(start).format();
-                    var end = $.fullCalendar.moment(end).format();
-                    $.ajax({
-                        data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id ,
-                        type: "POST",
-                        success: function(json) {
-                        alert("Updated Successfully");
-                        }
-                    });
-                }
-
-            });
-
-        });  
-    {% elseif app.request.locale == "en" %}
-        $(function () {
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
-            {% endif %}
-            var calendar = $('#calendar-holder').fullCalendar({
-                locale: 'en',
+                locale: lang,
                 editable: true,
                 header: {
                     left: 'prev,next today',
@@ -312,78 +239,5 @@
             });
 
         }); 
-    {% else %}
-        $(function () {
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
-            {% endif %}
-            var calendar = $('#calendar-holder').fullCalendar({
-                locale: 'pt',
-                editable: true,
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                events: "/fc-load-events",
-                businessHours: {
-                    start: '09:00',
-                    end: '18:00',
-                    dow: [1, 2, 3, 4, 5]
-                },
-                selectable: true,
-                selectHelper: true,
-                select: function(start, end, allDay) {
-                    if (title) {
-                        
-                        var start = $.fullCalendar.moment(start).format();
-                        var end = $.fullCalendar.moment(end).format();
-                        $.ajax({
-                            data: 'title='+ title+'&start='+ start +'&end='+ end +'&url='+ url ,
-                            type: "POST",
-                            success: function(json) {
-                                alert('Added Successfully');
-                            }
-                        });
-                        calendar.fullCalendar('renderEvent',
-                            {
-                                title: title,
-                                start: start,
-                                end: end,
-                                allDay: allDay
-                            },
-                            true // make the event "stick"
-                        );
-                    }
-                },
-
-                editable: true,
-                eventDrop: function(event, delta) {
-                        var start = $.fullCalendar.moment(start).format();
-                        var end = $.fullCalendar.moment(end).format();
-                        $.ajax({
-                            data: 'title=' + event.title + '&start='+ start +'&end=' + end + '&id=' + event.id ,
-                            type: "POST",
-                            success: function(json) {   
-                                alert("Updated Successfully");
-                            }
-                        });
-                },
-                eventResize: function(event) {
-                    var start = $.fullCalendar.moment(start).format();
-                    var end = $.fullCalendar.moment(end).format();
-                    $.ajax({
-                        data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id ,
-                        type: "POST",
-                        success: function(json) {
-                        alert("Updated Successfully");
-                        }
-                    });
-                }
-
-            });
-
-        }); 
-    {% endif %}
     </script>
 {% endblock %}
