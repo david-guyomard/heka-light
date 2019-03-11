@@ -44,7 +44,7 @@ class Booking
      * @ORM\ManyToOne(targetEntity="User", inversedBy="idBooking")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $userId;
+    public $userId;
 
     public function getId()
     {

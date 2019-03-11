@@ -4,36 +4,57 @@ namespace Application\AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Application\AppBundle\Entity\User;
+use Application\AppBundle\Entity\Booking;
 
 class BookingType extends AbstractType
 {
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $booking = new Booking;
         $builder->add('beginAt', DateTimeType::class, array(
             "date_widget" => "single_text",
             "time_widget" => "choice",
             "hours" => range(9,18),
-            "minutes" => range(0,59,15)
+            "minutes" => range(0,59,15),
+            "required"=>true,
         )
         )
         ->add('title', ChoiceType::class, array(
             "choices" => [
-                "Soin energetique avec massage 1h - 60 €" => "Soin energetique avec massage",
-                "Soin energetique sans massage 1h - 50 €" => "Soin energetique sans massage",
-                "Soin energetique à distance 1h - 30 €" => "Soin energetique à distance"
-            ]
+                "soin.with_massage"=> $this->translator->trans('soin.with_massage'),
+                "soin.without_massage"=> $this->translator->trans('soin.without_massage'),
+                "soin.distance"=> $this->translator->trans('soin.distance'),
+            ],
+            'translation_domain' => 'soin',
+            
+            "required"=>true,
         ))
-        ->add('userId')
-        ->add('address');
+        ->add('userId', ChoiceType::class, array(
+            "choices"=> [
+               $booking->userId => $booking->userId
+            ],
+            "required"=>true,
+        ))
+        ->add('address', 'text', array(
+            "required"=>true,
+        ));
     }/**
      * {@inheritdoc}
      */

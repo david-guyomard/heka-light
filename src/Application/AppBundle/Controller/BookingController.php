@@ -61,7 +61,7 @@ class BookingController extends Controller
                     [
                         'date_reservation' => $booking->getBeginAt(),
                         'type_reservation' => $booking->getTitle(),
-                        'adress_reservation' => $booking->getAddress()
+                        'address_reservation' => $booking->getAddress()
                     ]
                 ),
                 'text/html'

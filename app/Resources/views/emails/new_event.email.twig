@@ -5,7 +5,7 @@
     {{ app.user.username }}
     a réservé pour "{{ type_reservation }}" <br/>
     le {{ date_reservation|date('d/m/Y H:i:s') }}
-
+    à l'adresse suivante : {{ address_reservation }}
 
 {% endautoescape %}
 {% endblock %}
