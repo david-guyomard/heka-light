@@ -53,19 +53,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/admin/users/list", name="userspage")
-     */
-    public function userListAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('Application\Sonata\UserBundle\Entity\User')->findAll();
-        return $this->render('default/users.html.twig', [
-            'users' => $users
-        ]);
-    }
-
-    /**
      * @IsGranted("ROLE_USER")
      * @Route("/user/me", name="user")
      */

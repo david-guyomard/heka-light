@@ -16,7 +16,7 @@ class ProductAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('id', TextType::class);
+        //$formMapper->add('id', TextType::class);
         $formMapper->add('translations', TranslationsType::class);
     }
 

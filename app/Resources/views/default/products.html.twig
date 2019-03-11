@@ -1,9 +1,0 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
-    {% for product in products %}
-        {{ product.id }}
-        {{ product.getTitle }}
-        {{ product.getDescription }}
-    {% endfor %}
-{% endblock %}
