@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block body %}
-    {% if app.user %}
+    {% if app.user or is_granted('ROLE_ADMIN') %}
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-6">
@@ -23,7 +23,7 @@
                     <h1 class="text-center">Mes réservations</h1>
                     {% for booking in bookings %}
                         {% if booking %}
-                            {% if app.user.username == booking.userId %}
+                            {% if app.user.username == booking.userId or is_granted('ROLE_ADMIN') %}
                                 <div class="row">
                                     <div class="content text-secondary col">
                                         <div>
@@ -34,11 +34,13 @@
                                             à 
                                             {{ booking.endAt|date('G:i') }}
                                         </div>
-                                    
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <div> réservé par : {{ booking.userId }}</div>
+                                        {% endif %}
                                         <div>{{ booking.title |trans }}</div>
                                         <div> Adresse : {{ booking.address }}</div>
                                     </div>
-                                    <div class="actions p-3">  
+                                    <div class="actions p-3 d-flex align-items-center">  
                                         <a href="{{ path('booking_edit', { 'id': booking.id }) }}" class="fa fa-edit fa-lg" data-toggle="tooltip" data-placement="right" title="Modifier le rendez-vous"></a> 
                                         <a href="{{ path('booking_show', { 'id': booking.id }) }}" class="fa fa-eye fa-lg" data-toggle="tooltip" data-placement="right" title="Visualiser/supprimer le rendez-vous"></a>
                                     </div>
