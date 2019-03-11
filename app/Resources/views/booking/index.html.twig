@@ -1,5 +1,31 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'soin' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+    <style>
+        #application_appbundle_booking_beginAt_time_hour, #application_appbundle_booking_beginAt_time_minute{
+            height:100%
+        }
+        #application_appbundle_booking_userId {
+            /* for Firefox */
+            -moz-appearance: none;
+            /* for Chrome */
+            -webkit-appearance: none;
+            border: none;
+            background-color: transparent;
+            margin-left: 20px
+        }
+
+        /* For IE10 */
+        #application_appbundle_booking_userId::-ms-expand {
+            display: none;
+        }
+        
+    </style>
+{% endblock %}
+
+
 {% block body %}
     <div class="container-fluid">
         <div class="row">
@@ -138,29 +164,7 @@
     
 {% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
-    <style>
-        #application_appbundle_booking_beginAt_time_hour, #application_appbundle_booking_beginAt_time_minute{
-            height:100%
-        }
-        #application_appbundle_booking_userId {
-            /* for Firefox */
-            -moz-appearance: none;
-            /* for Chrome */
-            -webkit-appearance: none;
-            border: none;
-            background-color: transparent;
-            margin-left: 20px
-        }
 
-        /* For IE10 */
-        #application_appbundle_booking_userId::-ms-expand {
-            display: none;
-        }
-        
-    </style>
-{% endblock %}
 
 {% block javascripts %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -169,9 +173,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
     <script type="text/javascript">
         $(function () {
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                $('#application_appbundle_booking_userId option:selected').text('{{ app.user.username}}').val('{{ app.user.id }}');
-            {% endif %}
             var lang = $('html').attr('lang');
             var calendar = $('#calendar-holder').fullCalendar({
                 locale: lang,
@@ -190,6 +191,9 @@
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end, allDay) {
+                    if ( lang == "fr" && title == "soin.with_massage"){
+                        var title = "soin avec massage";
+                    }
                     if (title) {
                         
                         var start = $.fullCalendar.moment(start).format();

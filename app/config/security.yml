@@ -10,8 +10,7 @@ security:
 
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
-        #Application\Sonata\UserBundle\Entity\User:
-        Application\AppBundle\Entity\User:
+        Application\Sonata\UserBundle\Entity\User:
             algorithm: bcrypt
             cost: 12
     acl:
@@ -23,7 +22,7 @@ security:
             id: fos_user.user_provider.username_email
         sonata_provider:
             entity:
-                class: Application\AppBundle\Entity\User #Application\Sonata\UserBundle\Entity\User
+                class: Application\Sonata\UserBundle\Entity\User
                 property: username
 
     firewalls:

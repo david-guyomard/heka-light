@@ -9,17 +9,25 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-use Application\AppBundle\Entity\User;
 use Application\AppBundle\Entity\Booking;
 
 class BookingType extends AbstractType
 {
     private $translator;
+    /**
+     * @var TokenStorage
+     */
+    protected $tokenStorage;
 
-    public function __construct(TranslatorInterface $translator)
+    /**
+     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface    $tokenStorage
+     */
+    public function __construct(TranslatorInterface $translator, TokenStorageInterface $tokenStorage)
     {
         $this->translator = $translator;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -27,7 +35,8 @@ class BookingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $booking = new Booking;
+        $user = $this->tokenStorage->getToken()->getUser();
+        $username = $user->getusername();
         $builder->add('beginAt', DateTimeType::class, array(
             "date_widget" => "single_text",
             "time_widget" => "choice",
@@ -48,7 +57,7 @@ class BookingType extends AbstractType
         ))
         ->add('userId', ChoiceType::class, array(
             "choices"=> [
-               $booking->userId => $booking->userId
+                $username => $username
             ],
             "required"=>true,
         ))

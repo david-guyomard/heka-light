@@ -39,9 +39,11 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
 
+
     app.form.type.booking:
         class: Application\AppBundle\Form\Type\BookingType
         arguments:
             - translator.default
+            - "@security.token_storage"
         tags:
-            - { name: form.type, alias: soin }
+            - { name: form.type_soin, alias: soin }

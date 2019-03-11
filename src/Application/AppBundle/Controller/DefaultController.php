@@ -59,7 +59,7 @@ class DefaultController extends Controller
     public function userListAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('AppBundle:User')->findAll();
+        $users = $em->getRepository('Application\Sonata\UserBundle\Entity\User')->findAll();
         return $this->render('default/users.html.twig', [
             'users' => $users
         ]);
@@ -73,7 +73,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository('AppBundle:Booking')->findAll();
-        $users = $em->getRepository('AppBundle:User')->findAll();
+        $users = $em->getRepository('Application\Sonata\UserBundle\Entity\User')->findAll();
         return $this->render('default/user.html.twig', [
             'users' => $users,
             'bookings'=> $booking

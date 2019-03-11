@@ -41,8 +41,7 @@ class Booking
     private $address;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="idBooking")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\Column(type="string", length=255)
      */
     public $userId;
 
@@ -96,7 +95,7 @@ class Booking
         return $this->userId;
     }
 
-    public function setUserId(User $userId)
+    public function setUserId(string $userId)
     {
         $this->userId = $userId;
     }

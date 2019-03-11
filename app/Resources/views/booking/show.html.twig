@@ -64,7 +64,7 @@
                     {{ booking.endAt|date(' H:i a') }}
                 </div>
             
-                <div class="text-center">{{ booking.title }}</div>
+                <div class="text-center">{{ booking.title|trans }}</div>
                 <div class="text-center"> Username : {{ booking.userId }}</div>
                 <div class="text-center"> Address : {{ booking.address }}</div>
             
@@ -99,7 +99,7 @@
                     {{ booking.endAt|date('G:i') }}
                 </div>
             
-                <div class="text-center">{{ booking.title|trans({'%title%': 'booking'}, "app") }}</div>
+                <div class="text-center">{{ booking.title|trans }}</div>
                 <div class="text-center"> Username : {{ booking.userId }}</div>
                 <div class="text-center"> Endereço : {{ booking.address }}</div>
             
