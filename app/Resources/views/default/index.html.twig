@@ -77,7 +77,7 @@
                 {% if is_granted('ROLE_ADMIN') and product.id =="6" %}
                     <ul>
                         <li>
-                            <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">éditer</a>
+                            <a href="{{ path('admin_application_app_product_edit', { 'id': product.id }) }}">éditer</a>
                         </li>
                     </ul>
                 {% endif %}
