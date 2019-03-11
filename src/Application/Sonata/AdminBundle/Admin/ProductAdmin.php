@@ -11,13 +11,20 @@ use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use A2lix\AutoFormBundle\Form\Type\AutoFormType;
 use A2lix\TranslationFormBundle\Form\Type\TranslatedEntityType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class ProductAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
         //$formMapper->add('id', TextType::class);
-        $formMapper->add('translations', TranslationsType::class);
+        $formMapper->add('translations', TranslationsType::class, array(
+            "fields" => array(
+                'description' => array(
+                    'field_type' => CKEditorType::class
+                ),
+            ),
+        ));
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
