@@ -36,35 +36,39 @@ class BookingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $this->tokenStorage->getToken()->getUser();
-        $username = $user->getusername();
-        $builder->add('beginAt', DateTimeType::class, array(
-            "date_widget" => "single_text",
-            "time_widget" => "choice",
-            "hours" => range(9,18),
-            "minutes" => range(0,59,15),
-            "required"=>true,
-        )
-        )
-        ->add('title', ChoiceType::class, array(
-            "choices" => [
-                "soin.with_massage"=> $this->translator->trans('soin.with_massage'),
-                "soin.without_massage"=> $this->translator->trans('soin.without_massage'),
-                "soin.distance"=> $this->translator->trans('soin.distance'),
-            ],
-            'translation_domain' => 'soin',
-            
-            "required"=>true,
-        ))
-        ->add('userId', ChoiceType::class, array(
-            "choices"=> [
-                $username => $username
-            ],
-            "required"=>true,
-        ))
-        ->add('address', 'text', array(
-            "required"=>true,
-        ));
-    }/**
+        if ($user != "anon."){
+            $username = $user->getusername();
+            $builder->add('beginAt', DateTimeType::class, array(
+                "date_widget" => "single_text",
+                "time_widget" => "choice",
+                "hours" => range(9,18),
+                "minutes" => range(0,59,15),
+                "required"=>true,
+            )
+            )
+            ->add('title', ChoiceType::class, array(
+                "choices" => [
+                    "soin.with_massage"=> $this->translator->trans('soin.with_massage'),
+                    "soin.without_massage"=> $this->translator->trans('soin.without_massage'),
+                    "soin.distance"=> $this->translator->trans('soin.distance'),
+                ],
+                'translation_domain' => 'soin',
+                
+                "required"=>true,
+            ))
+            ->add('userId', ChoiceType::class, array(
+                "choices"=> [
+                    $username => $username
+                ],
+                "required"=>true,
+            ))
+            ->add('address', 'text', array(
+                "required"=>true,
+            ));
+        }
+    }
+    
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

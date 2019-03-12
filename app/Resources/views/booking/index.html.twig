@@ -28,8 +28,8 @@
 
 {% block body %}
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-10">
+        <div class="row mt-5">
+            <div class="col-10 mt-3">
                 {% include '@FullCalendar/Calendar/calendar.html.twig' %}
             </div>
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
@@ -74,6 +74,7 @@
                                     {{ form_widget(form.address, { 'attr' : { 'class' : 'form-control p-0' }}) }}
                                     <input class="btn btn-success mt-3" type="submit" value="Valider le rendez-vous" />
                                 {{ form_end(form) }}
+                                </div>
                             {% elseif app.request.locale == "en" %}
                                 <div class="modal-header">
                                     <h1 class="modal-title" > Make an appointment </h1>
@@ -105,6 +106,7 @@
 
                                     <input class="btn btn-success mt-3" type="submit" value="confirm" />
                                 {{ form_end(form) }}
+                                </div>
                             {% else %}
                                 <div class="modal-header">
                                     <h1 class="modal-title" > Marcar uma consulta </h1>
@@ -136,10 +138,17 @@
 
                                     <input class="btn btn-success mt-3" type="submit" value="confirmar a consulta" />
                                 {{ form_end(form) }}
+                                </div>
                             {% endif %}
-                            </div>
+                            
                             <div class="modal-footer">
+                                <a href="{{ asset('images/confidentialité.pdf')}}">
+                                    {{ app.request.locale =="fr" ? 'Politique de confidentialité' }}
+                                    {{ app.request.locale =="en" ? 'Privacy policy' }}
+                                    {{ app.request.locale =="pt" ? 'Política de Privacidade' }}
+                                </a>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                
                             </div>
                         </div>
                     </div>

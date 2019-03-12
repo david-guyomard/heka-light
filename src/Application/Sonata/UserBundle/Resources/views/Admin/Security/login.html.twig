@@ -53,43 +53,15 @@ file that was distributed with this source code.
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('booking_index.fr') }}">AGENDA</a>
                     </li>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('sonata_admin_dashboard') }}">Mon compte</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('sonata_user_admin_security_logout') }}">Se déconnecter</a>
-                        </li>
-                    {% elseif is_granted('ROLE_USER') %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('user.fr') }}">Mon compte</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('sonata_user_admin_security_logout') }}">Se déconnecter</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('sonata_user_admin_security_login') }}">Se connecter</a>
-                        </li>
-                    {% endif %}
-                    {% if app.request.attributes.get('_route') == 'homepage' %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('homepage.pt') }}">
-                                <img src=" {{ asset('images/pt.jpg') }} " height ="20" alt="heka light, heka-light, portuguese flag, drapeau portugais">
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('homepage.en') }}">
-                                <img src=" {{ asset('images/gb.jpg') }} " height ="20" alt="heka light, heka-light, english flag, drapeau anglais">
-                            </a>
-                        </li>
-                    {% endif %}
-                  
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('sonata_user_admin_security_login') }}">Se connecter</a>
+                    </li>                  
                 </ul>
             </div>
         </nav>
     <div class="container-fluid d-flex justify-content-center">
-    <div class="login-box">
+    <div class="login-box mt-5">
         <div class="login-box-body">
             {% block sonata_user_login_form %}
                 {% block sonata_user_login_error %}
@@ -155,22 +127,29 @@ file that was distributed with this source code.
 
                         <div class="row">
                             
-                                <div class="col">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
-                                            {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
-                                        </label>
-                                    </div>
+                            <div class="col">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                                        {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                                    </label>
                                 </div>
-                                <div class="col">
-                                    <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
-                                </div>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                            </div>
                             
                         </div>
                     </form>
                     <div>
                         <a href="{{ path('fos_user_registration_register')}}"> S'inscrire </a>
+                    </div>
+                    <div>
+                        <a href="{{ asset('images/confidentialité.pdf')}}">
+                            {{ app.request.locale =="fr" ? 'Politique de confidentialité' }}
+                            {{ app.request.locale =="en" ? 'Privacy policy' }}
+                            {{ app.request.locale =="pt" ? 'Política de Privacidade' }}
+                        </a>
                     </div>
                     <a href="{{ reset_route }}">{{ 'forgotten_password'|trans({}, 'SonataUserBundle') }}</a>
                 {% endif %}

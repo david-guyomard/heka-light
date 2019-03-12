@@ -2,8 +2,8 @@
 
 
 <div class="container-fluid">
-    <div class="row justify-content-center">
-        <span class="text-center"> S'enregistrer </span>
+    <div class="row justify-content-center mt-5">
+        <h1 class="text-center"> S'enregistrer </h1>
     </div>
     <div class="row justify-content-center">
         {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
@@ -20,11 +20,21 @@
                 <input class="btn btn-success" type="submit" value="{{ 'registration.submit'|trans }}" />
             </div>
         {{ form_end(form) }}
+        
+        
     </div>
+    <div class="row justify-content-center">
+        <a href="{{ asset('images/confidentialité.pdf')}}">
+            {{ app.request.locale =="fr" ? 'Politique de confidentialité' }}
+            {{ app.request.locale =="en" ? 'Privacy policy' }}
+            {{ app.request.locale =="pt" ? 'Política de Privacidade' }}
+        </a>
+    </div>
+</div>
 
 {% block stylesheets %}
     <style>
-        span{
+        h1{
             font-size: 50px;
         }
     </style>

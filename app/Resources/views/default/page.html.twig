@@ -2,6 +2,13 @@
 {% block body %}
 {% if 'pratique' in app.request.uri %}
     <div class="container">
+        <div class="row justify-content-center my-4">
+            <h1> 
+                {{ app.request.locale =="fr" ? 'MA PRATIQUE' }}
+                {{ app.request.locale =="en" ? 'MY PRACTICE' }}
+                {{ app.request.locale =="pt" ? 'MINHA PRATICA' }}
+            </h1>
+        </div>
         <div class="row">
             <div class="col-12 col-lg mb-5 mb-lg-0">
                 <img class="img-fluid mr-3" src="{{ asset('images/pratique.jpg') }}" alt="heka-light, heka, light, heka light"/>
@@ -58,6 +65,13 @@
     </div>
 {% elseif 'therapie' in app.request.uri %} 
     <div class="container">
+        <div class="row justify-content-center my-4">
+            <h1> 
+                {{ app.request.locale =="fr" ? 'THERAPIE QUANTIQUE' }}
+                {{ app.request.locale =="en" ? 'QUANTUM THERAPY' }}
+                {{ app.request.locale =="pt" ? 'TERAPIA QUANTICA' }}
+            </h1>
+        </div>
         <div class="row">
             <div class="col-12 col-lg mb-5 mb-lg-0">
                 <img class="img-fluid" src="{{ asset('images/rocher.jpeg') }}" alt="heka-light, heka, light, heka light"/>
@@ -136,8 +150,34 @@
         </div>
     </div>
 {% elseif 'kundalini' in app.request.uri %} 
-    <div> page kundalini </div>
+    <div class="container">
+        <div class="row justify-content-center my-4">
+            <h1> 
+                {{ app.request.locale =="fr" ? 'EVEIL KUNDALINI' }}
+                {{ app.request.locale =="en" ? 'AWAIKENING KUNDALINI' }}
+                {{ app.request.locale =="pt" ? 'DESPERTAR KUNDALINI' }}
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <img class="img-fluid" src="{{asset('images/construct.jpg')}}" alt="page en construction">
+            </div>
+        </div>
+    </div>
 {% elseif 'evenements' in app.request.uri %} 
-    <div> page evenements </div>
+    <div class="container">
+        <div class="row justify-content-center my-4">
+            <h1> 
+                {{ app.request.locale =="fr" ? 'EVENEMENTS' }}
+                {{ app.request.locale =="en" ? 'EVENTS' }}
+                {{ app.request.locale =="pt" ? 'EVENTOS' }}
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <img class="img-fluid" src="{{asset('images/construct.jpg')}}" alt="page en construction">
+            </div>
+        </div>
+    </div>
 {% endif %}
 {% endblock %}
