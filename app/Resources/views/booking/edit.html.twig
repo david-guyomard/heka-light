@@ -56,18 +56,18 @@
                             
                             {{ form_label(edit_form.address, 'Votre adresse postale') }}
                             {{ form_widget(edit_form.address, { 'attr' : { 'class' : 'form-control p-0' }}) }}
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between mt-3">
                                 
                                 <div>
-                                    <a href="{{ path('booking_index.fr') }}" class="fa fa-reply fa-3x align-self-center" data-toggle="tooltip" data-placement="right" title="Retourner à l'agenda"></a>
+                                    <a href="{{ path('booking_index.fr') }}" class="fa fa-reply fa-2x align-self-center" data-toggle="tooltip" data-placement="right" title="Retourner à l'agenda"></a>
                                 </div>
-                                <button type="submit" class="btn" onclick="return confirm('Êtes-vous sur de vouloir changer ce rendez-vous ?');">
-                                    <i class="fa fa-edit fa-3x align-middle text-success" aria-hidden="true"></i>
+                                <button type="submit" class="btn bg-white" onclick="return confirm('Êtes-vous sur de vouloir changer ce rendez-vous ?');">
+                                    <i class="fa fa-edit fa-2x align-middle text-success" aria-hidden="true"></i>
                                 </button>
                                 <div>
                                     {{ form_start(delete_form) }}
                                         <button type="submit" onclick="return confirm('Êtes-vous sur de vouloir supprimer ce rendez-vous ?');" style="border: 0; background: none;" data-toggle="tooltip" data-placement="right" title="Supprimer le rendez-vous">
-                                            <i class="fa fa-trash fa-3x align-middle text-danger" aria-hidden="true"></i>
+                                            <i class="fa fa-trash fa-2x align-middle text-danger" aria-hidden="true"></i>
                                         </button>
                                     {{ form_end(delete_form) }} 
                                 </div>
