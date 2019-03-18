@@ -23,13 +23,16 @@
             border : 1px solid #c6c6c6;
             border-radius : 10px;
         }
+        .container {
+            height: 100vh;
+        }
     </style>
 {% endblock %}
 {% block body %}
     {% if app.user.username == booking.userId or is_granted('ROLE_ADMIN') %}
         <div class="container">
-            <div class=" row justify-content-center">
-                <div class="content col-4 p-4">
+            <div class=" row justify-content-center mt-5">
+                <div class="content col-4 p-4 my-5">
                     {% if app.request.locale =="fr" %}
                         <h1 class="text-center"> Modifier mon rendez-vous </h1>
                         {{ form_start(edit_form) }}
@@ -64,7 +67,7 @@
                                 <div>
                                     {{ form_start(delete_form) }}
                                         <button type="submit" onclick="return confirm('Êtes-vous sur de vouloir supprimer ce rendez-vous ?');" style="border: 0; background: none;" data-toggle="tooltip" data-placement="right" title="Supprimer le rendez-vous">
-                                            <i class="fa fa-trash-o fa-3x align-middle text-danger" aria-hidden="true"></i>
+                                            <i class="fa fa-trash fa-3x align-middle text-danger" aria-hidden="true"></i>
                                         </button>
                                     {{ form_end(delete_form) }} 
                                 </div>

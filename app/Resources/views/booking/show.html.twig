@@ -6,6 +6,9 @@
             border: 1px solid #c6c6c6;
             border-radius : 10px;
         }
+        .container {
+            height: 100vh
+        }
         a, a:hover {
             color: grey;
         }
@@ -13,10 +16,10 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container mt-5">
     {% if app.request.locale =="fr" %}
-        <div class="row justify-content-center">
-            <div class="content text-secondary col-4 p-4">
+        <div class="row justify-content-center mt-5">
+            <div class="content text-secondary col-4 mt-5 p-4">
                 <div class="text-center">
                     Le : 
                     {{ booking.beginAt|date('d/m/Y') }}
@@ -38,7 +41,7 @@
                         <div class="col-2 d-flex justify-content-center">
                             {{ form_start(delete_form) }}
                                 <button type="submit" onclick="return confirm('Êtes-vous sur de vouloir changer ce rendez-vous ?');" style="border: 0; background: none;" data-toggle="tooltip" data-placement="right" title="Supprimer le rendez-vous">
-                                    <i class="fa fa-trash-o fa_custom align-middle" aria-hidden="true"></i>
+                                    <i class="fa fa-trash fa_custom align-middle" aria-hidden="true"></i>
                                 </button>
                             {{ form_end(delete_form) }} 
                         </div>
