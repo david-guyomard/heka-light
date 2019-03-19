@@ -103,7 +103,7 @@ class PageController extends Controller
     /**
      * Deletes a page entity.
      *
-     * @Route("/{id}", name="pages_delete")
+     * @Route("/{id}/delete", name="pages_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Page $page)
